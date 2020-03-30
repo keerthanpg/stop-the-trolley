@@ -1,0 +1,90 @@
+body{
+    font-family : 'Crimson Text' !important;
+}
+
+
+#title{
+    font-family: 'Josefin Sans';
+    text-transform: uppercase;
+    font-size: 80px;
+    margin: 0px;
+    line-height: 1;
+    font-weight: 900;
+    margin-top: 50px;
+}
+
+#sub-title{
+    font-size: 18px;
+    font-family: 'Roboto Condensed';
+}
+
+
+.explanation{
+    font-size: 16px !important;
+}
+
+#section-1{
+    min-height: 100vh;
+}
+
+#section-2{
+    background: #333;
+    width: 100%;
+}
+
+#miles{
+    height: 700px;
+}
+
+
+#miles-month,#disengagements-month, #miles-per-disengagement,#fleet-month{
+    height: 200px;
+}
+
+.mile-bar-text{
+    color:#fff;
+    fill:#fff;
+    font-family: 'Roboto Condensed';
+    font-size: 14px;
+}
+
+div#tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 200px;					
+    height: 50px;					
+    padding: 2px;				
+    font: 12px sans-serif;		
+    background: #eee;
+    color: #000;	
+    border: 0px;		
+    border-radius: 3px;			
+    pointer-events: none;			
+    display: none;
+    /* opacity: 0.5; */
+}
+
+
+.tick>line{
+    color: #fff;
+    stroke-dasharray: 5 3;
+    opacity: 0.3;
+}
+
+.axis>path{
+    color: #fff;
+    display: none;
+}
+.tick>text{
+    font-size: 12px;
+    font-family: 'Roboto Condensed';
+    margin-top: 5px;
+    color: #fff;
+    fill: #fff;
+}
+
+
+.text-title{
+    font-family: 'Roboto Condensed';
+    fill: #fff;
+}
