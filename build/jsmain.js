@@ -43,8 +43,12 @@ function months(i){
 }
 
 
+// function fleetChart(id,data){
+//     svg = d3.select(id);
 
-function mileBarChart(id, data) {
+// }
+
+function mileBarChart(id, svgID ,data) {
     const w = +d3.select(id).style('width').slice(0, -2);
     const h = +d3.select(id).style('height').slice(0, -2);
 
@@ -52,7 +56,7 @@ function mileBarChart(id, data) {
     const paddingY = 20;
 
 
-    let svg = d3.select(id).append('svg').attr('height', h).attr('width', w);
+    let svg = d3.select(id).append('svg').attr('height', h).attr('width', w).attr('id',svgID);
 
     const xScale = d3.scaleLinear()
         .domain(d3.extent(data, (d) => {
@@ -91,6 +95,39 @@ function mileBarChart(id, data) {
         .text((d) => {
             return nameShortner[d.company_name];
         })
+
+
+    let perc = data.map((d,i)=>([d.fleet,nameShortner[d.company_name],i]));
+
+    let totalAV = perc.reduce((a,b)=> a+b[0], 0);
+    
+    perc = perc.map(d=>[Math.round(d[0]*100/totalAV,1),d[1],d[2]])
+    // console.log(totalAV, perc)
+    totalAV = perc.reduce((a,b)=> a+b[0], 0);
+    
+
+    let fleet = []
+
+    perc.map(d=>{
+        for(var k=0;k<d[0];k++)fleet.push([d[1],d[2]])
+    })
+
+
+    console.log(totalAV, perc, fleet)
+
+    let carScale = 20;
+    let carSpace = 25;
+
+    svg.append('g').attr('transform','translate('+(xScale.range()[1]-carSpace*10)+','+(yScale.range()[1]-carSpace*10)+')')
+    .selectAll('.fleet').data(fleet).enter()
+    .append('image')
+        .attr('xlink:href', './res/av2.svg')
+        .attr('width', carScale)
+        .attr('height', carScale)
+        .attr('style',function(d,i){
+            return 'transform:translate('+carSpace*(i%10)+'px,'+carSpace*parseInt(i/10)+'px)';
+        })
+        .attr('class',(d,i)=>('company-'+d[1]))
 
 }
 
@@ -183,9 +220,10 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
         .attr("class", "text-title")
         .attr('fill', '#000')
         .attr('x', w / 2)
-        .attr('y', paddingY-5)
+        .attr('y', h/2)
         .attr('text-anchor', 'middle')
-        .text(units+" vs Months")
+        .attr('transform', 'rotate(90)')
+        .text(units)
 
 
 
@@ -200,7 +238,7 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
 
         if (tempCompanies.includes(company.company_name)) {
 
-            console.log('company',company);
+            // console.log('company',company);
             // svg.append("text")
             // .attr("class", "text-legend-miles-months") // Assign a class for styling 
             // .attr("id", "text-" + country.replace(' ,-')) // Assign a class for styling 
@@ -266,6 +304,137 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
 }
 
 
+function initMilesDisFleet(id, idSVG) {
+    const w = +d3.select(id).style('width').slice(0, -2);
+    const h = +d3.select(id).style('height').slice(0, -2);
+
+
+    let svg = d3.select(id).append('svg').attr('height', h).attr('width', w).attr('id', idSVG);
+
+}
+
+
+function drawMilesDisFleet(idSVG, data) {
+
+
+    console.log('dlp',data)
+    const w = +d3.select(idSVG).style('width').slice(0, -2);
+    const h = +d3.select(idSVG).style('height').slice(0, -2);
+
+    const paddingX = 50;
+    const paddingY = 20;
+
+
+    let svg = d3.select(idSVG)
+
+    
+    
+
+
+    const xScale = d3.scaleLinear()
+        .domain(d3.extent(data,(d)=>+d.miles))
+        .range([paddingX, w - paddingX])
+        
+    const yScale = d3.scaleLinear()
+        .domain(d3.extent(data,(d)=>+d.disengagements))
+        .range([h - paddingY, paddingY]);
+
+    
+    // var line = d3.line()
+    //     .x(function (d, i) { return xScale(i); }) // set the x values for the line generator
+    //     .y(function (d) {
+    //         return yScale(d);
+    //     })
+    //     .curve(d3.curveMonotoneX)
+
+    d3.selectAll('#x-axis-sec3-1').remove();
+    d3.selectAll('#y-axis-sec3-1').remove();
+
+    svg.append("g")
+        .attr("class", "x axis-sec3")
+        .attr("id", "x-axis-sec3-1")
+        .attr("transform", "translate(0," + (h - paddingY) + ")")
+        .call(d3.axisBottom(xScale)
+            .tickFormat((d)=>{
+                return d/1000 + 'k'
+            })
+            .tickSize(2 * paddingY - h)
+            .ticks(11)
+        ); // Create an axis component with d3.axisBottom
+
+
+    console.log("xaxis");
+
+
+    svg.append("g")
+        .attr("class", "y axis-sec3")
+        .attr("id", "y-axis-sec3-1")
+        .attr("transform", "translate(" + paddingX + ",0)")
+        .call(d3.axisLeft(yScale).tickSize(-w + 2 * paddingX)
+            .tickFormat(function (d) {
+                return d;
+            })
+            .ticks(8)
+        ); // Create an axis component with d3.axisLeft
+
+
+    d3.selectAll(".circle-sec3-1").remove();
+    // d3.selectAll(".text-legend-"+modifier).remove();
+    // d3.selectAll("#text-title-plot-"+modifier).remove();
+
+
+    // svg.append("text")
+    //     .attr("id", "text-title-plot-"+modifier)
+    //     .attr("class", "text-title")
+    //     .attr('fill', '#000')
+    //     .attr('x', w / 2)
+    //     .attr('y', h/2)
+    //     .attr('text-anchor', 'middle')
+    //     .attr('transform', 'rotate(90)')
+    //     .text(units)
+
+
+
+    var div = d3.select("#tooltip");
+
+
+        svg.append("g").selectAll(".circle-sec3-1")
+            .data(data).enter()
+            .append('circle')
+                    .attr("class", "circles circle-sec3-1")
+                    .attr("cx", (d,i) => xScale(d.miles))
+                    .attr('cy', (d) => yScale(d.disengagements))
+                    .attr('r', d=>Math.sqrt(d.fleet))
+                    .attr('fill', 'grey')
+                    // .on("mouseover", function (d,i) {
+                    //     div.transition()
+                    //         .duration(200)
+                    //         .style("display", 'block');
+                    //     div.html(() => {
+                    //         let c = +d3.select(this).attr('class').replace('circles ', '').replace('circle-'+modifier+'-', '').replace('circle-'+modifier, '');
+                    //         console.log(c);
+                    //         let val = '';
+                    //         if (scale===1000) val = (d/1000).toFixed(2)+'k '+units;
+                    //         else val = d+' '+units;
+                    //         return '<span style="font-weight:800; letter-spacing: 2px; color:#c0392b; text-transform: uppercase">' +
+                    //             data[c].company_name + '</span><br>' + months(i) + "<br>" + val;
+                    //     })
+                    //         .style("left", (d3.event.pageX - 100) + "px")
+                    //         .style("top", (d3.event.pageY - 60) + "px");
+                    // })
+                    // .on("mouseout", function (d) {
+                    //     div.transition()
+                    //         .duration(500)
+                    //         // .style("opacity", 0)
+                    //         .style("display", 'none');
+                    // })
+
+
+
+
+        }
+
+
 
     Promise.all(
         [
@@ -280,7 +449,9 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
 
             data.map((d,i)=>{
                 data[i]['miles_per_disengagement'] = d.miles/d.disengagements;
-                data[i]['miles_per_disengagement_months'] = d.miles_month.map(function(n, j) { return n / d.disengagements_month[j]; });
+                // data[i]['miles_per_disengagement_month'] = d.miles_month.map(function(n, j) { return n / d.disengagements_month[j]; });
+                data[i]['miles_per_disengagement_month'] = d.miles_month.map(function(n, j) { return 0 });
+                data[i]['company_id'] = i;
             })
 
 
@@ -289,8 +460,9 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
             })
 
 
-            mileBarChart('#miles', data);
-
+            mileBarChart('#miles', 'miles-svg', data);
+            // fleetChart('#miles-svg',data);
+            
 
             let plotInitialized = false;
 
@@ -308,12 +480,16 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
                             drawLinePlot('#miles-month-svg', returnedValues, data, 'miles_month',1000,'Miles');
                             drawLinePlot('#disengagements-month-svg', returnedValues, data, 'disengagements_month',1,'Disengagements');
                             drawLinePlot('#fleet-month-svg', returnedValues, data, 'fleet_month',1,'Fleet');
-                            drawLinePlot('#miles-per-disengagement-month-svg', returnedValues, data, 'miles_per_disengagement_month',1,'Miles/Disengagement');
+                            drawMilesDisFleet('#miles-disengagement-fleet-svg',returnedValues);
+                            // milesPerDisengagement('#miles-per-disengagement',data);
+
+                            // drawLinePlot('#miles-per-disengagement-month-svg', returnedValues, data, 'miles_per_disengagement_month',1,'Miles/Disengagement');
                         } else {
                             $.when(initLinePlot('#miles-month', 'miles-month-svg')).then(drawLinePlot('#miles-month-svg', returnedValues, data, 'miles_month',1000,'Miles'));
                             $.when(initLinePlot('#disengagements-month', 'disengagements-month-svg')).then(drawLinePlot('#disengagements-month-svg', returnedValues, data, 'disengagements_month',1,'Disengagements'));
                             $.when(initLinePlot('#fleet-month', 'fleet-month-svg')).then(drawLinePlot('#fleet-month-svg', returnedValues, data, 'fleet_month',1,'Fleet'));
-                            $.when(initLinePlot('#miles-per-disengagement-month', 'miles-per-disengagement-month-svg')).then(drawLinePlot('#miles-per-disengagement-month-svg', returnedValues, data, 'miles_per_disengagement_month',1,'Miles/Disengagement'));
+                            $.when(initMilesDisFleet('#miles-disengagement-fleet', 'miles-disengagement-fleet-svg')).then(drawMilesDisFleet('#miles-disengagement-fleet-svg', returnedValues));
+                            // $.when(initLinePlot('#miles-per-disengagement-month', 'miles-per-disengagement-month-svg')).then(drawLinePlot('#miles-per-disengagement-month-svg', returnedValues, data, 'miles_per_disengagement_month',1,'Miles/Disengagement'));
                             plotInitialized = true;
                         }
                     }

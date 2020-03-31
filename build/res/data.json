@@ -2,7 +2,7 @@
     {
         "miles": 706.55,
         "disengagements_location": [],
-        "diengagements": 444,
+        "disengagements": 444,
         "fleet": 1,
         "fleet_month": [
             1,
@@ -53,7 +53,7 @@
     {
         "miles": 68761.93999999999,
         "disengagements_location": [],
-        "diengagements": 34,
+        "disengagements": 34,
         "fleet": 33,
         "fleet_month": [
             9,
@@ -104,7 +104,7 @@
     {
         "miles": 0.0,
         "disengagements_location": [],
-        "diengagements": 165,
+        "disengagements": 165,
         "fleet": 3,
         "fleet_month": [
             0,
@@ -155,7 +155,7 @@
     {
         "miles": 42930.96,
         "disengagements_location": [],
-        "diengagements": 1667,
+        "disengagements": 1667,
         "fleet": 19,
         "fleet_month": [
             4,
@@ -206,7 +206,7 @@
     {
         "miles": 3492.8,
         "disengagements_location": [],
-        "diengagements": 140,
+        "disengagements": 140,
         "fleet": 2,
         "fleet_month": [
             1,
@@ -257,7 +257,7 @@
     {
         "miles": 21.36,
         "disengagements_location": [],
-        "diengagements": 8,
+        "disengagements": 8,
         "fleet": 2,
         "fleet_month": [
             0,
@@ -308,7 +308,7 @@
     {
         "miles": 304.74,
         "disengagements_location": [],
-        "diengagements": 8,
+        "disengagements": 8,
         "fleet": 10,
         "fleet_month": [
             0,
@@ -359,7 +359,7 @@
     {
         "miles": 0.0,
         "disengagements_location": [],
-        "diengagements": 6,
+        "disengagements": 6,
         "fleet": 0,
         "fleet_month": [
             0,
@@ -410,7 +410,7 @@
     {
         "miles": 22.0,
         "disengagements_location": [],
-        "diengagements": 3,
+        "disengagements": 3,
         "fleet": 1,
         "fleet_month": [
             1,
@@ -461,7 +461,7 @@
     {
         "miles": 985.0,
         "disengagements_location": [],
-        "diengagements": 27,
+        "disengagements": 27,
         "fleet": 0,
         "fleet_month": [
             0,
@@ -512,7 +512,7 @@
     {
         "miles": 2277.4,
         "disengagements_location": [],
-        "diengagements": 47,
+        "disengagements": 47,
         "fleet": 4,
         "fleet_month": [
             2,
@@ -563,7 +563,7 @@
     {
         "miles": 3974.2571999999996,
         "disengagements_location": [],
-        "diengagements": 75,
+        "disengagements": 75,
         "fleet": 8,
         "fleet_month": [
             2,
@@ -614,7 +614,7 @@
     {
         "miles": 0.0,
         "disengagements_location": [],
-        "diengagements": 52,
+        "disengagements": 52,
         "fleet": 1,
         "fleet_month": [
             0,
@@ -665,7 +665,7 @@
     {
         "miles": 831039.8810760168,
         "disengagements_location": [],
-        "diengagements": 68,
+        "disengagements": 68,
         "fleet": 225,
         "fleet_month": [
             72,
@@ -716,7 +716,7 @@
     {
         "miles": 7218.0,
         "disengagements_location": [],
-        "diengagements": 655,
+        "disengagements": 655,
         "fleet": 10,
         "fleet_month": [
             4,
@@ -767,7 +767,7 @@
     {
         "miles": 1454137.32117974,
         "disengagements_location": [],
-        "diengagements": 110,
+        "disengagements": 110,
         "fleet": 110,
         "fleet_month": [
             95,
@@ -818,7 +818,7 @@
     {
         "miles": 108300.2,
         "disengagements_location": [],
-        "diengagements": 6,
+        "disengagements": 6,
         "fleet": 4,
         "fleet_month": [
             3,
@@ -869,7 +869,7 @@
     {
         "miles": 12.2,
         "disengagements_location": [],
-        "diengagements": 0,
+        "disengagements": 0,
         "fleet": 1,
         "fleet_month": [
             0,
@@ -920,7 +920,7 @@
     {
         "miles": 1817.0,
         "disengagements_location": [],
-        "diengagements": 2947,
+        "disengagements": 2947,
         "fleet": 6,
         "fleet_month": [
             1,
@@ -971,7 +971,7 @@
     {
         "miles": 7544.0,
         "disengagements_location": [],
-        "diengagements": 64,
+        "disengagements": 64,
         "fleet": 23,
         "fleet_month": [
             0,
@@ -1022,7 +1022,7 @@
     {
         "miles": 99.56,
         "disengagements_location": [],
-        "diengagements": 92,
+        "disengagements": 92,
         "fleet": 1,
         "fleet_month": [
             0,
@@ -1073,7 +1073,7 @@
     {
         "miles": 14238.069233300002,
         "disengagements_location": [],
-        "diengagements": 2054,
+        "disengagements": 2054,
         "fleet": 15,
         "fleet_month": [
             4,
@@ -1124,7 +1124,7 @@
     {
         "miles": 0.0,
         "disengagements_location": [],
-        "diengagements": 109,
+        "disengagements": 109,
         "fleet": 1,
         "fleet_month": [
             0,
@@ -1175,7 +1175,7 @@
     {
         "miles": 1880.0,
         "disengagements_location": [],
-        "diengagements": 2,
+        "disengagements": 2,
         "fleet": 1,
         "fleet_month": [
             1,
@@ -1226,7 +1226,7 @@
     {
         "miles": 2229.66,
         "disengagements_location": [],
-        "diengagements": 40,
+        "disengagements": 40,
         "fleet": 4,
         "fleet_month": [
             2,
@@ -1277,7 +1277,7 @@
     {
         "miles": 205.0,
         "disengagements_location": [],
-        "diengagements": 24,
+        "disengagements": 24,
         "fleet": 1,
         "fleet_month": [
             0,
@@ -1328,7 +1328,7 @@
     {
         "miles": 174845.29000000004,
         "disengagements_location": [],
-        "diengagements": 27,
+        "disengagements": 27,
         "fleet": 22,
         "fleet_month": [
             6,
@@ -1379,7 +1379,7 @@
     {
         "miles": 5917.0,
         "disengagements_location": [],
-        "diengagements": 39,
+        "disengagements": 39,
         "fleet": 7,
         "fleet_month": [
             4,
@@ -1430,7 +1430,7 @@
     {
         "miles": 13429.49,
         "disengagements_location": [],
-        "diengagements": 141,
+        "disengagements": 141,
         "fleet": 6,
         "fleet_month": [
             6,
@@ -1481,7 +1481,7 @@
     {
         "miles": 2164.19,
         "disengagements_location": [],
-        "diengagements": 37,
+        "disengagements": 37,
         "fleet": 3,
         "fleet_month": [
             2,
@@ -1532,7 +1532,7 @@
     {
         "miles": 1125.0,
         "disengagements_location": [],
-        "diengagements": 43,
+        "disengagements": 43,
         "fleet": 1,
         "fleet_month": [
             0,
@@ -1583,7 +1583,7 @@
     {
         "miles": 67015.0,
         "disengagements_location": [],
-        "diengagements": 42,
+        "disengagements": 42,
         "fleet": 32,
         "fleet_month": [
             13,
@@ -1634,7 +1634,7 @@
     {
         "miles": 2430.0,
         "disengagements_location": [],
-        "diengagements": 70,
+        "disengagements": 70,
         "fleet": 1,
         "fleet_month": [
             1,
@@ -1685,7 +1685,7 @@
     {
         "miles": 6056.0,
         "disengagements_location": [],
-        "diengagements": 26,
+        "disengagements": 26,
         "fleet": 3,
         "fleet_month": [
             1,
@@ -1736,7 +1736,7 @@
     {
         "miles": 32054.0,
         "disengagements_location": [],
-        "diengagements": 3,
+        "disengagements": 3,
         "fleet": 7,
         "fleet_month": [
             5,
@@ -1787,7 +1787,7 @@
     {
         "miles": 0.0,
         "disengagements_location": [],
-        "diengagements": 63,
+        "disengagements": 63,
         "fleet": 1,
         "fleet_month": [
             0,
