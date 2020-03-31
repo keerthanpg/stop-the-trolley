@@ -32,13 +32,27 @@ body{
     width: 100%;
 }
 
+
+#section-3{
+    width: 100%;
+}
+
+
 #miles{
     height: 700px;
 }
 
 
-#miles-month,#disengagements-month, #miles-per-disengagement,#fleet-month{
+#miles-month,#disengagements-month, #miles-per-disengagement-month,#fleet-month{
     height: 200px;
+}
+
+#miles-per-disengagement{
+    height: 100px;
+}
+
+#miles-disengagement-fleet{
+    height: 400px;
 }
 
 .mile-bar-text{
@@ -65,8 +79,16 @@ div#tooltip {
 }
 
 
+
+
 .tick>line{
     color: #fff;
+    stroke-dasharray: 5 3;
+    opacity: 0.3;
+}
+
+.axis-sec3>.tick>line{
+    color: #000;
     stroke-dasharray: 5 3;
     opacity: 0.3;
 }
@@ -75,6 +97,7 @@ div#tooltip {
     color: #fff;
     display: none;
 }
+
 .tick>text{
     font-size: 12px;
     font-family: 'Roboto Condensed';
@@ -83,6 +106,13 @@ div#tooltip {
     fill: #fff;
 }
 
+.axis-sec3>.tick>text{
+    font-size: 12px;
+    font-family: 'Roboto Condensed';
+    margin-top: 5px;
+    color: #000;
+    fill: #000;
+}
 
 .text-title{
     font-family: 'Roboto Condensed';
