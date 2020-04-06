@@ -590,10 +590,12 @@ function drawDisLocation(id, data) {
 
     d3.selectAll('.location-donuts').remove();
 
+    var div = d3.select("#tooltip");
+
     data.map(company=>{
         let comp = d3.select(id).append('div').attr('class','col-xs-2 location-donuts').attr('id','location-company-'+company.company_id);
         const w = +d3.select('#location-company-'+company.company_id).style('width').slice(0, -2);
-        const h = 120;
+        const h = 200;
         let compsvg = comp.append('svg').attr('height',h).attr('width',w);
 
         let outerRadius = 40;
@@ -624,7 +626,7 @@ function drawDisLocation(id, data) {
                 .attr('id','donut-'+company.company_id)
                 .attr("fill", (d)=>(colors[d.data.location]))
                 .attr("d", arc)
-                .attr("style", "transform:translate("+parseInt(outerRadius)+"px,"+parseInt(h/2)+"px)")
+                .attr("style", "transform:translate("+parseInt(outerRadius)+"px,"+parseInt(h/4)+"px)")
                 .each(function(d,i) { 
                     console.log('donut',d,i);
                     this._current = d; });
@@ -692,7 +694,7 @@ function drawDisLocation(id, data) {
         compsvg
         .append("rect")
                 .attr('id','dis-td-'+company.company_id)
-                .attr("fill", '#c0392b')
+                .attr("fill", '#2980b9')
                 .attr('x',2*outerRadius + 34)
                 .attr('y',height_bar[0] * total_height_back + 10)
                 .attr('rx',5)
@@ -708,10 +710,29 @@ function drawDisLocation(id, data) {
         
 
         compsvg.append('text').text(nameShortner[company.company_name]).attr('x',w/2).attr('y',h-5)
+        .attr('text-anchor','middle').attr('class','plot-text bold')
+        
+        compsvg.append('text').text("Locations").attr('x',w/4).attr('y',h/4)
         .attr('text-anchor','middle').attr('class','plot-text')
-                
-    
-                })
+        
+        
+        compsvg.append('text').text("Actors").attr('x',0.75*w-10).attr('y',h/2+5)
+        .attr('text-anchor','middle').attr('class','plot-text')
+        
+        console.log(company.top_disengagement_reasons);
+
+        compsvg.selectAll('.reasons-dis').data(company.top_disengagement_reasons).enter()
+        .append('rect').attr('x',60).attr('y',(d,i)=>(i*25 + h/2 + 15)).attr('width',(d,i)=>((w-80))).attr('height',10)
+        .attr('fill','#aaa').attr('rx',5).attr('ry',5)
+
+        compsvg.selectAll('.reasons-dis-color').data(company.top_disengagement_reasons).enter()
+        .append('rect').attr('x',60).attr('y',(d,i)=>(i*25 + h/2 + 15)).attr('width',(d,i)=>(d.perc*(w-80))).attr('height',10)
+        .attr('fill','#c0392b').attr('rx',5).attr('ry',5)
+
+        compsvg.selectAll('.reasons-dis-text').data(company.top_disengagement_reasons).enter()
+        .append('text').attr('x',0).attr('y',(d,i)=>(i*25 + h/2 + 25)).text((d,i)=>("Reason "+ (i+1)))
+
+    })
 
 
 }
@@ -730,6 +751,7 @@ function drawDisLocation(id, data) {
             })
 
             data.map((d,i)=>{
+                // console.log(d.company_name, d.disengagements_reason.length)
                 data[i]['miles_per_disengagement'] = d.miles/d.disengagements;
                 // data[i]['miles_per_disengagement_month'] = d.miles_month.map(function(n, j) { return n / d.disengagements_month[j]; });
                 data[i]['miles_per_disengagement_month'] = d.miles_month.map(function(n, j) { return 0 });
@@ -741,6 +763,27 @@ function drawDisLocation(id, data) {
                 d["disengagements_actor"].map((f,g)=>{
                     data[i]["disengagements_actor"][g]['total'] = f["numbers_by_month"].reduce((a,b)=>(a+b));
                 })
+
+                d["disengagements_reason"].map((f,g)=>{
+                    data[i]["disengagements_reason"][g]['total'] = f["numbers_by_month"].reduce((a,b)=>(a+b));
+                })
+
+                data[i]["disengagements_reason"] = d["disengagements_reason"].sort((b,a)=>{
+                    return a.total - b.total;
+                })
+                
+                let reason_total = d.disengagements_reason.reduce((a,b)=>a+b.total,0);
+
+                
+                data[i]["top_disengagement_reasons"] = data[i]['disengagements_reason'].filter((a,b)=>{
+                    if (b<=2) return true;
+                })
+
+                data[i]["top_disengagement_reasons"].map((a,b)=>{
+                    data[i]["top_disengagement_reasons"][b]['perc'] = a.total/reason_total;
+                })
+
+
 
             })
 
