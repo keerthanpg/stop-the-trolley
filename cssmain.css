@@ -134,3 +134,9 @@ div#tooltip {
     /* border: 1px #aaa solid; */
     margin: 10px;
 }
+
+
+.bold{
+    font-weight: 900;
+    font-size: 18px;
+}
