@@ -2009,7 +2009,7 @@
     {
         "disengagements_actor": [
             {
-                "actor": "test driver",
+                "actor": "Test Driver",
                 "numbers_by_month": [
                     0,
                     0,
@@ -2059,7 +2059,7 @@
                     0,
                     0
                 ],
-                "location": "street"
+                "location": "Street"
             },
             {
                 "numbers_by_month": [
@@ -2076,7 +2076,7 @@
                     0,
                     0
                 ],
-                "location": "street (high speed)"
+                "location": "Freeway"
             }
         ],
         "miles_month": [
@@ -3324,7 +3324,7 @@
     {
         "disengagements_actor": [
             {
-                "actor": "Vehicle Operator",
+                "actor": "Test Driver",
                 "numbers_by_month": [
                     2,
                     3,
@@ -4094,7 +4094,7 @@
                     0,
                     0
                 ],
-                "location": "STREET"
+                "location": "Street"
             }
         ],
         "miles_month": [
@@ -4987,7 +4987,7 @@
                     5,
                     0
                 ],
-                "location": "street"
+                "location": "Street"
             },
             {
                 "numbers_by_month": [
@@ -5004,7 +5004,7 @@
                     0,
                     0
                 ],
-                "location": "highway"
+                "location": "Highway"
             }
         ],
         "miles_month": [
@@ -5588,7 +5588,7 @@
                     0,
                     0
                 ],
-                "location": "Parking Lot"
+                "location": "Parking Facility"
             },
             {
                 "numbers_by_month": [
@@ -5863,7 +5863,7 @@
                     5,
                     5
                 ],
-                "location": " Downtown street"
+                "location": "Street"
             }
         ],
         "miles_month": [
@@ -6138,7 +6138,7 @@
                     8,
                     0
                 ],
-                "location": "Rural Road"
+                "location": "Rural"
             }
         ],
         "miles_month": [
@@ -6893,7 +6893,7 @@
     {
         "disengagements_actor": [
             {
-                "actor": "Test driver",
+                "actor": "Test Driver",
                 "numbers_by_month": [
                     10,
                     8,
@@ -7578,7 +7578,7 @@
                     869,
                     53
                 ],
-                "location": "street"
+                "location": "Street"
             },
             {
                 "numbers_by_month": [
@@ -7595,7 +7595,7 @@
                     1,
                     0
                 ],
-                "location": "parking facility"
+                "location": "Parking Facility"
             }
         ],
         "miles_month": [
