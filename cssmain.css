@@ -55,6 +55,8 @@ body{
     height: 400px;
 }
 
+
+
 .mile-bar-text{
     color:#fff;
     fill:#fff;
@@ -117,4 +119,18 @@ div#tooltip {
 .text-title{
     font-family: 'Roboto Condensed';
     fill: #fff;
+}
+
+
+
+.plot-text{
+    font-family: 'Roboto Condensed'
+}
+
+
+.location-donuts{
+    background: #efefef;
+    border-radius: 5px;
+    /* border: 1px #aaa solid; */
+    margin: 10px;
 }

@@ -13,8 +13,9 @@
         
         <link rel="stylesheet" href="cssmain.css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Roboto+Condensed|Crimson+Text" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
-            crossorigin="anonymous">
+        <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+            crossorigin="anonymous"> -->
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
@@ -63,6 +64,12 @@
             <div id="section-3" class="row center-xs middle-xs">
                     <div class="col-xs-8" id="miles-disengagement-fleet"></div>
                     <div class="col-xs-8" id="miles-per-disengagement"></div>
+                    <div class="col-xs-8 row center-xs">
+                        <p>Disengagements Locations{<i class="circle icon" style="color:#2c3e50"></i>: Street | <i class="circle icon"  style="color:#8e44ad"></i>: Highway | <i class="circle icon"  style="color:#27ae60"></i>: Freeway | <i class="circle icon"  style="color:#95a5a6"></i>: Parking Facility | <i class="circle icon"  style="color:#f1c40f"></i>: Rural}</p>
+                        <p>Disengagement initiated by Actors {👤: Test Driver | 🤖: AV System}</p>
+                        <div class="col-xs-12 row center-xs" id="disengagement-location"></div>
+                    </div>
+                    <div class="col-xs-8" id="disengagement-reason"></div>
                     
             </div>
     
