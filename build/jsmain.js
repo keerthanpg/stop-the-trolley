@@ -37,6 +37,45 @@ const nameShortner = {
     "Apex.Ai, Inc.": "Apex.ai"
 }
 
+const colormap = {
+    "Waymo LLC": "#00e89d",
+    "CRUISE LLC": "#f65037",
+    "PONY.AI, INC.": "#6bd5df",
+    "Baidu USA LLC": "#2216d2",
+    "Nuro": "#00b291",
+    "Zoox, Inc": "#000000",
+    "Lyft": "#f700b9",
+    "AutoX Technologies, Inc.": "#00ccf1",
+    "Mercedes-Benz Research & Development North America, Inc.": "#737373",
+    "Aurora Innovation, Inc.": "#71819c",
+    "Apple Inc.": "#f73b4f",
+    "NVIDIA": "#76b900",
+    "AImotive Inc.": "#00b550",
+    "WeRide Corp": "#89a440",
+    "Drive.ai Inc": "#e65f35",
+    "SF Motors, Inc.": "#86311f",
+    "Nullmax": "#305d33",
+    "Nissan North America, Inc": "#f07f75",
+    "SAIC Innovation Center": "#6b4a40",
+    "Qualcomm Technologies, Inc.": "#f7c427",
+    "PlusAI, Inc.": "#f6c77d",
+    "Toyota Research Institute": "#5d3e7b",
+    "Phantom AI, Inc. ": "#b79f00",
+    "ThorDrive, Inc.": "#b00068",
+    "Udelv, Inc": "#790869",
+    "DiDi Research America, LLC": "#f48c50",
+    "Gatik AI Inc.": "#39384e",
+    "Valeo North America Inc.": "#ba65a3",
+    "Telenav, Inc.": "#f6f3c7",
+    "BMW of North America": "#040000",
+    "Tesla, Inc.": "#c60001",
+    "Intel Corporation": "#006dbf",
+    "RIDECELL INC": "#bb2727",
+    "Ambarella Corp.": "#484848",
+    "Box Bot Inc.": "#ed81b9",
+    "Apex.Ai, Inc.": "#164843"
+}
+
 function months(i){
     let m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
     return m[i];
