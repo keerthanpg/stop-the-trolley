@@ -202,7 +202,7 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
     })
     
     const xScale = d3.scalePoint()
-        .domain([0,1,2,3,4,5,6,7,8,9,10,11])
+        .domain([11,0,1,2,3,4,5,6,7,8,9,10])
         .range([paddingX, w - paddingX])
         .padding(0.6)
         .round(true)
