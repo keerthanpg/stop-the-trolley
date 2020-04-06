@@ -37,12 +37,12 @@ const nameShortner = {
     "Apex.Ai, Inc.": "Apex.ai"
 }
 
-const colormap = {
-    "Waymo LLC": "#00e89d",
-    "CRUISE LLC": "#f65037",
-    "PONY.AI, INC.": "#6bd5df",
-    "Baidu USA LLC": "#2216d2",
-    "Nuro": "#00b291",
+const colorMap = {
+    "Waymo LLC": "#27ae60",
+    "CRUISE LLC": "#c0392b",
+    "PONY.AI, INC.": "#f39c12",
+    "Baidu USA LLC": "#2980b9",
+    "Nuro": "#7f8c8d",
     "Zoox, Inc": "#000000",
     "Lyft": "#f700b9",
     "AutoX Technologies, Inc.": "#00ccf1",
@@ -122,7 +122,7 @@ function mileBarChart(id, svgID ,data) {
             return xScale(d.miles) - xScale(0);
         })
         .attr('height', 10)
-        .attr('fill', 'red')
+        .attr('fill', (d)=>colorMap[d.company_name])
 
     svg.append('g').selectAll('.mile-bar-text').data(data).enter()
         .append('text').attr('class', 'mile-bar-text')
@@ -136,7 +136,7 @@ function mileBarChart(id, svgID ,data) {
         })
 
 
-    let perc = data.map((d,i)=>([d.fleet,nameShortner[d.company_name],i]));
+    let perc = data.map((d,i)=>([d.fleet,d.company_name,i]));
 
     let totalAV = perc.reduce((a,b)=> a+b[0], 0);
     
@@ -152,10 +152,21 @@ function mileBarChart(id, svgID ,data) {
     })
 
 
-    // console.log(totalAV, perc, fleet)
+    console.log(totalAV, perc, fleet)
 
     let carScale = 20;
-    let carSpace = 25;
+    let carSpace = 42;
+
+
+    svg.append('g').attr('transform','translate('+(xScale.range()[1]-carSpace*10)+','+(yScale.range()[1]-carSpace*10)+')')
+    .selectAll('.fleet').data(fleet).enter()
+    .append('circle')
+        .attr('r', carScale)
+        .attr('style',function(d,i){
+            return 'transform:translate('+carSpace*(i%10)+'px,'+carSpace*parseInt(i/10)+'px)';
+        })
+        .attr('class',(d,i)=>('company-'+d[1]))
+        .attr('fill',(d)=>colorMap[d[0]])
 
     svg.append('g').attr('transform','translate('+(xScale.range()[1]-carSpace*10)+','+(yScale.range()[1]-carSpace*10)+')')
     .selectAll('.fleet').data(fleet).enter()
@@ -164,7 +175,7 @@ function mileBarChart(id, svgID ,data) {
         .attr('width', carScale)
         .attr('height', carScale)
         .attr('style',function(d,i){
-            return 'transform:translate('+carSpace*(i%10)+'px,'+carSpace*parseInt(i/10)+'px)';
+            return 'transform:translate('+(carSpace*(i%10)-10)+'px,'+(carSpace*parseInt(i/10)-10)+'px)';
         })
         .attr('class',(d,i)=>('company-'+d[1]))
 
@@ -293,7 +304,7 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
                 .attr("id", "line-"+modifier+"-"+companyID) // Assign a class for styling 
                 .attr("d", line)
                 .attr('fill', 'none')
-                .attr('stroke', 'green')
+                .attr('stroke', (d)=>colorMap[company.company_name])
                 .attr('stroke-width', 2)
 
             svg.append("g").selectAll(".circle-"+modifier+"-" + companyID)
@@ -306,7 +317,7 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
                             return yScale(d);
                         })
                         .attr('r', 3.5)
-                        .attr('fill', 'green')
+                        .attr('fill', (d)=>colorMap[company.company_name])
                         .on("mouseover", function (d,i) {
                             div.transition()
                                 .duration(200)
@@ -443,8 +454,8 @@ function drawMilesDisFleet(idSVG, data) {
                     .attr("class", "circles circle-sec3-1")
                     .attr("cx", (d,i) => xScale(d.miles))
                     .attr('cy', (d) => yScale(d.disengagements))
-                    .attr('r', d=>Math.sqrt(d.fleet))
-                    .attr('fill', 'grey')
+                    .attr('r', d=>Math.sqrt(d.fleet)*2)
+                    .attr('fill', (d)=>colorMap[d.company_name])
                     // .on("mouseover", function (d,i) {
                     //     div.transition()
                     //         .duration(200)
@@ -511,7 +522,7 @@ function drawMilesPerDis(idSVG, data) {
     svg.append("g")
         .attr("class", "x axis-sec3")
         .attr("id", "x-axis-sec3-2")
-        .attr("transform", "translate(0," + (h/2) + ")")
+        .attr("transform", "translate(0," + (h-20) + ")")
         .call(d3.axisBottom(xScale)
             .tickFormat((d)=>{
                 return d/1000 + 'k'
@@ -547,8 +558,9 @@ function drawMilesPerDis(idSVG, data) {
                     .attr("class", "circles circle-sec3-2")
                     .attr("cx", (d,i) => xScale(d.miles_per_disengagement))
                     .attr('cy', h/2)
-                    .attr('r', d=>Math.sqrt(d.fleet))
-                    .attr('fill', 'grey')
+                    .attr('r', d=>Math.sqrt(d.fleet)*2)
+                    .attr('fill', (d)=>colorMap[d.company_name])
+                    // .attr('opacity',0.8)
                     // .on("mouseover", function (d,i) {
                     //     div.transition()
                     //         .duration(200)
