@@ -1467,7 +1467,7 @@
                     6,
                     0
                 ],
-                "actor": "Safety Driver"
+                "actor": "Test Driver"
             }
         ],
         "disengagements": 6,
@@ -3844,7 +3844,7 @@
                     0,
                     0
                 ],
-                "location": "STREET"
+                "location": "Street"
             }
         ],
         "miles_month": [
@@ -6035,7 +6035,7 @@
                     0,
                     0
                 ],
-                "location": "Parking Lot"
+                "location": "Parking Facility"
             },
             {
                 "numbers_by_month": [
@@ -6277,7 +6277,7 @@
                     5,
                     6
                 ],
-                "actor": "Test driver"
+                "actor": "Test Driver"
             }
         ],
         "disengagements": 68,
@@ -9876,7 +9876,7 @@
                     6,
                     0
                 ],
-                "location": "highway"
+                "location": "Highway"
             },
             {
                 "numbers_by_month": [
@@ -9893,7 +9893,7 @@
                     10,
                     5
                 ],
-                "location": "street"
+                "location": "Street"
             }
         ],
         "miles_month": [
@@ -10236,7 +10236,7 @@
                     0,
                     5
                 ],
-                "location": " Downtown street"
+                "location": "Street"
             }
         ],
         "miles_month": [
@@ -10807,7 +10807,7 @@
                     0,
                     0
                 ],
-                "actor": "test driver"
+                "actor": "Test Driver"
             }
         ],
         "disengagements": 52,
@@ -10857,7 +10857,7 @@
                     0,
                     0
                 ],
-                "location": "street"
+                "location": "Street"
             },
             {
                 "numbers_by_month": [
@@ -10874,7 +10874,7 @@
                     0,
                     0
                 ],
-                "location": "street (high speed)"
+                "location": "Highway"
             }
         ],
         "miles_month": [
@@ -11115,7 +11115,7 @@
                     806,
                     869
                 ],
-                "location": "street"
+                "location": "Street"
             },
             {
                 "numbers_by_month": [
@@ -11132,7 +11132,7 @@
                     0,
                     1
                 ],
-                "location": "parking facility"
+                "location": "Parking Facility"
             }
         ],
         "miles_month": [
@@ -12552,7 +12552,7 @@
                     0,
                     8
                 ],
-                "location": "Rural Road"
+                "location": "Rural"
             }
         ],
         "miles_month": [
