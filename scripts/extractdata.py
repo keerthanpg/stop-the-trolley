@@ -48,7 +48,9 @@ def get_month(row):
 		month = row[2][:3]
 		month = inverse_month[month]
 
-	month = int(month)-1
+	month = int(month)
+	if(month == 12):
+		month = 0
 	return month
 
 def process_disengagements(filename):
@@ -100,7 +102,7 @@ def process_miles(filename):
 			data[row[0]]["company_name"] = row[0]
 			data[row[0]]["miles"] = 0.0
 			data[row[0]]["miles_month"] = [0,0,0,0,0,0,0,0,0,0,0,0]
-			data[row[0]]["diengagements"] = 0
+			data[row[0]]["disengagements"] = 0
 			data[row[0]]["disengagements_month"] = [0,0,0,0,0,0,0,0,0,0,0,0]
 			data[row[0]]["fleet"] = 0
 			data[row[0]]["fleet_month"] = [0,0,0,0,0,0,0,0,0,0,0,0]
@@ -108,7 +110,7 @@ def process_miles(filename):
 			data[row[0]]["disengagements_actor"] = {}
 			data[row[0]]["disengagements_location"] = {}
 		data[row[0]]["miles"] += float(row[16])
-		data[row[0]]["diengagements"] += int(row[3])
+		data[row[0]]["disengagements"] += int(row[3])
 		
 
 		all_zero = True

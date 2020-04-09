@@ -77,7 +77,7 @@ const colorMap = {
 }
 
 function months(i){
-    let m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    let m = ['Dec', 'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov']
     return m[i];
 }
 
@@ -213,7 +213,7 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
     })
     
     const xScale = d3.scalePoint()
-        .domain([11,0,1,2,3,4,5,6,7,8,9,10])
+        .domain([0,1,2,3,4,5,6,7,8,9,10,11])
         .range([paddingX, w - paddingX])
         .padding(0.6)
         .round(true)
