@@ -269,10 +269,10 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
         .attr("id", "text-title-plot-"+modifier)
         .attr("class", "text-title")
         .attr('fill', '#000')
-        .attr('x', w / 2)
-        .attr('y', h/2)
+        .attr('x', -h/2)
+        .attr('y', w/32)
         .attr('text-anchor', 'middle')
-        .attr('transform', 'rotate(90)')
+        .attr('transform', 'rotate(270)')
         .text(units)
 
 
