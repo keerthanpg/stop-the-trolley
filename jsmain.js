@@ -478,7 +478,7 @@ function drawMilesDisFleet(idSVG, data) {
     const h = +d3.select(idSVG).style('height').slice(0, -2);
 
     const paddingX = 50;
-    const paddingY = 20;
+    const paddingY = 40;
 
 
     let svg = d3.select(idSVG)
@@ -539,15 +539,24 @@ function drawMilesDisFleet(idSVG, data) {
     // d3.selectAll("#text-title-plot-"+modifier).remove();
 
 
-    // svg.append("text")
-    //     .attr("id", "text-title-plot-"+modifier)
-    //     .attr("class", "text-title")
-    //     .attr('fill', '#000')
-    //     .attr('x', w / 2)
-    //     .attr('y', h/2)
-    //     .attr('text-anchor', 'middle')
-    //     .attr('transform', 'rotate(90)')
-    //     .text(units)
+    svg.append("text")
+        .attr("id", "text-title-plot-milesdisflee-y")
+        .attr("class", "text-title")
+        .attr('fill', '#000')
+        .attr('x', -h/2)
+        .attr('y', w/32)
+        .attr('text-anchor', 'middle')
+        .attr('transform', 'rotate(270)')
+        .text("disengagements")
+
+    svg.append("text")
+        .attr("id", "text-title-plot-milesdisfleet-x")
+        .attr("class", "text-title")
+        .attr('fill', '#000')
+        .attr('x', w/2)
+        .attr('y', h + h/2048)
+        .attr('text-anchor', 'middle')
+        .text("miles")
 
 
 
@@ -643,15 +652,14 @@ function drawMilesPerDis(idSVG, data) {
     // d3.selectAll("#text-title-plot-"+modifier).remove();
 
 
-    // svg.append("text")
-    //     .attr("id", "text-title-plot-"+modifier)
-    //     .attr("class", "text-title")
-    //     .attr('fill', '#000')
-    //     .attr('x', w / 2)
-    //     .attr('y', h/2)
-    //     .attr('text-anchor', 'middle')
-    //     .attr('transform', 'rotate(90)')
-    //     .text(units)
+    svg.append("text")
+        .attr("id", "text-title-plot-milesperdis-x")
+        .attr("class", "text-title")
+        .attr('fill', '#000')
+        .attr('x', w/2)
+        .attr('y', h + h/32)
+        .attr('text-anchor', 'middle')
+        .text("miles per disengagement")
 
 
 
