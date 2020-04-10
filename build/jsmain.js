@@ -158,9 +158,9 @@ function mileBarChart(id, svgID, data) {
         .attr("class", "text-title")
         .attr('fill', '#000')
         .attr('font-size',30)
-        .attr('x', w/2)
+        .attr('x', w-10)
         .attr('y', 120)
-        .attr('text-anchor', 'middle')
+        .attr('text-anchor', 'end')
         .text('Total Miles')
 
         svg.append("text")
@@ -168,9 +168,9 @@ function mileBarChart(id, svgID, data) {
         .attr("class", "text-title")
         .attr('fill', '#000')
         .attr('font-size',30)
-        .attr('x', w/2)
+        .attr('x', w-10)
         .attr('y', 170)
-        .attr('text-anchor', 'middle')
+        .attr('text-anchor', 'end')
         .text('&')
 
         svg.append("text")
@@ -178,9 +178,9 @@ function mileBarChart(id, svgID, data) {
         .attr("class", "text-title")
         .attr('fill', '#000')
         .attr('font-size',30)
-        .attr('x', w/2)
+        .attr('x', w-10)
         .attr('y', 220)
-        .attr('text-anchor', 'middle')
+        .attr('text-anchor', 'end')
         .text('Total Fleet Size')
 
 
@@ -259,16 +259,28 @@ function mileBarChart(id, svgID, data) {
 
     // console.log(totalAV, perc, fleet)
 
-    let carScale = 20;
-    let carSpace = 42;
+    let carScale, carSpace;
+
+    if (w>400){
+        carScale = 20;
+        carSpace = 42;
+        wCircles = 10;
+    }
+    else{
+        carScale = 11;
+        carSpace = 22;
+        wCircles = 5;
+    }
+
+    
 
 
-    svg.append('g').attr('transform', 'translate(' + (xScale.range()[1] - carSpace * 10) + ',' + (yScale.range()[1] - carSpace * 10) + ')')
+    svg.append('g').attr('transform', 'translate(' + (xScale.range()[1] - carSpace *wCircles) + ',' + (yScale.range()[1] - carSpace * (100/wCircles)) + ')')
         .selectAll('.fleet').data(fleet).enter()
         .append('circle')
         .attr('r', carScale)
         .attr('style', function (d, i) {
-            return 'transform:translate(' + carSpace * (i % 10) + 'px,' + carSpace * parseInt(i / 10) + 'px)';
+            return 'transform:translate(' + carSpace * (i % wCircles) + 'px,' + carSpace * parseInt(i / wCircles) + 'px)';
         })
         .attr('class', (d, i) => ('fleet-circles company-' + d[1]))
         .attr('fill', (d) => colorMap[d[0]])
@@ -303,14 +315,14 @@ function mileBarChart(id, svgID, data) {
         
         
 
-    svg.append('g').attr('transform', 'translate(' + (xScale.range()[1] - carSpace * 10) + ',' + (yScale.range()[1] - carSpace * 10) + ')')
+    svg.append('g').attr('transform', 'translate(' + (xScale.range()[1] - carSpace * wCircles) + ',' + (yScale.range()[1] - carSpace * (100/wCircles)) + ')')
         .selectAll('.fleet').data(fleet).enter()
         .append('image')
         .attr('xlink:href', './res/av2.svg')
         .attr('width', carScale)
         .attr('height', carScale)
         .attr('style', function (d, i) {
-            return 'transform:translate(' + (carSpace * (i % 10) - 10) + 'px,' + (carSpace * parseInt(i / 10) - 10) + 'px)';
+            return 'transform:translate(' + (carSpace * (i % wCircles) - wCircles) + 'px,' + (carSpace * parseInt(i / wCircles) - wCircles) + 'px)';
         })
         .attr('class', (d, i) => ('cars-fleet company-' + d[1]))
 
@@ -802,7 +814,7 @@ function drawDisLocation(id, data) {
     var div = d3.select("#tooltip");
 
     data.map(company => {
-        let comp = d3.select(id).append('div').attr('class', 'col-xs-2 location-donuts').attr('id', 'location-company-' + company.company_id);
+        let comp = d3.select(id).append('div').attr('class', 'col-md-2 col-xs-5 location-donuts').attr('id', 'location-company-' + company.company_id);
         const w = +d3.select('#location-company-' + company.company_id).style('width').slice(0, -2);
         const h = 200;
 
