@@ -30,11 +30,11 @@
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0&appId=328142808109908&autoLogAppEvents=1"></script>
         <div id="main" class="row center-xs">
             <div id="section-1" class="row center-xs middle-xs">
-                <div class="col-xs-8 center-xs row">
+                <div class="col-md-8 col-xs-12 center-xs row">
                     <p class="col-xs-12" id="title">Stop the Trolley!</p>
                     <p class="col-xs-12" id="sub-title">California Autonomous Driving Test Statistics 2019</p>
                     <img class="col-xs-6" src="res/source.gif">
-                    <p  class="col-xs-8 explanation">
+                    <p  class="col-xs-10 col-md-8 explanation">
                             The CA DMV, on Feb 26, 2020 released a batch of reports filed by multiple companies testing autonomous cars in the bay area. All companies testing autonomous cars on public roads are 
                             required to report statistics and details related to miles driven and diengagements, otherwise known as human-takeovers. The batch of data visualised here corresponds to the period spanning Dec 1, 2018 to Nov 30, 2019. <br> <br>
 
@@ -51,27 +51,27 @@
 
 
             <div id="section-2" class="row center-xs middle-xs">
-                <div class="col-xs-6" id="left-pane">
+                <div class="col-md-6 col-xs-12" id="left-pane">
                         <div id="miles"></div>
                 </div>
-                <div class="col-xs-6 row center-xs" id="right-pane">
-                        <select class="col-xs-8 ui search dropdown" multiple="" id='company-search'></select>
-                        <div class="col-xs-8" id="miles-month"></div>
-                        <div class="col-xs-8" id="disengagements-month"></div>
-                        <div class="col-xs-8" id="fleet-month"></div>
+                <div class="col-md-6 col-xs-12 row center-xs" id="right-pane">
+                        <select class="col-md-8 col-xs-12 ui search dropdown" multiple="" id='company-search'></select>
+                        <div class="col-md-8 col-xs-12 " id="miles-month"></div>
+                        <div class="col-md-8 col-xs-12 " id="disengagements-month"></div>
+                        <div class="col-md-8 col-xs-12 " id="fleet-month"></div>
                         <!-- <div class="col-xs-8" id="miles-per-disengagement-month"></div> -->
                 </div>
             </div>
 
             <div id="section-3" class="row center-xs middle-xs">
-                    <div class="col-xs-8" id="miles-disengagement-fleet"></div>
-                    <div class="col-xs-8" id="miles-per-disengagement" style="margin-top: 50px;margin-bottom: 50px" ></div>
-                    <div class="col-xs-8 row center-xs">
+                    <div class="col-md-8 col-xs-12 " id="miles-disengagement-fleet"></div>
+                    <div class="col-md-8 col-xs-12 " id="miles-per-disengagement" style="margin-top: 50px;margin-bottom: 50px" ></div>
+                    <div class="col-md-8 col-xs-12  row center-xs">
                         <p>Disengagements Locations{<i class="circle icon" style="color:#2c3e50"></i>: Street | <i class="circle icon"  style="color:#8e44ad"></i>: Highway | <i class="circle icon"  style="color:#27ae60"></i>: Freeway | <i class="circle icon"  style="color:#95a5a6"></i>: Parking Facility | <i class="circle icon"  style="color:#f1c40f"></i>: Rural}</p>
                         <p>Disengagement initiated by Actors {👤: Test Driver | 🤖: AV System}</p>
                         <div class="col-xs-12 row center-xs" id="disengagement-location"></div>
                     </div>
-                    <div class="col-xs-8" id="disengagement-reason"></div>
+                    <div class="col-md-8 col-xs-12" id="disengagement-reason"></div>
                     
             </div>
 
