@@ -56,10 +56,16 @@ body{
 
 #miles-per-disengagement{
     height: 100px;
+    background: #eee;
+    border-radius: 5px;
+    margin: 5px;
 }
 
 #miles-disengagement-fleet{
     height: 400px;
+    background: #eee;
+    border-radius: 5px;
+    margin: 5px;
 }
 
 
@@ -74,9 +80,9 @@ body{
 div#tooltip {	
     position: absolute;			
     text-align: center;			
-    width: 200px;					
-    height: 50px;					
-    padding: 2px;				
+    width: auto;
+    height: auto;
+    padding: 20px;				
     font: 12px sans-serif;		
     background: #333;
     color: #fff;	
@@ -86,8 +92,6 @@ div#tooltip {
     display: none;
     /* opacity: 0.5; */
 }
-
-
 
 
 .tick>line{
@@ -142,6 +146,9 @@ div#tooltip {
     margin: 10px;
 }
 
+.location-donuts>*{
+    pointer-events: none;
+}
 
 .bold{
     font-weight: 900;
@@ -160,3 +167,9 @@ div#tooltip {
 .cars-fleet{
     pointer-events: none;
 }
+
+
+#miles-disengagement-fleet-svg>.axis-sec3>path, #miles-per-disengagement-svg>.axis-sec3>path{
+    color: #eee;
+}
+
