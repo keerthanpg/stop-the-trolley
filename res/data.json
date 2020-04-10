@@ -1865,57 +1865,6 @@
         "company_name": "Drive.ai Inc"
     },
     {
-        "disengagements_actor": [],
-        "disengagements": 0,
-        "miles": 12.2,
-        "disengagements_month": [
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-        ],
-        "fleet_month": [
-            0,
-            0,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0
-        ],
-        "fleet": 1,
-        "disengagements_location": [],
-        "miles_month": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            12.2,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0
-        ],
-        "disengagements_reason": [],
-        "company_name": "Tesla, Inc."
-    },
-    {
         "disengagements_actor": [
             {
                 "numbers_by_month": [
