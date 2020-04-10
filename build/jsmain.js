@@ -866,7 +866,7 @@ function drawDisLocation(id, data) {
         let compsvg = comp.append('svg').attr('height', h).attr('width', w);
 
         let outerRadius = 40;
-        let innerRadius = 35;
+        let innerRadius = 32;
         let cornerRadius = 10;
 
         let padAngle = 0.01;
@@ -980,11 +980,11 @@ function drawDisLocation(id, data) {
         compsvg.append('text').text(nameShortner[company.company_name]).attr('x', w / 2).attr('y', h - 5)
             .attr('text-anchor', 'middle').attr('class', 'plot-text bold')
 
-        compsvg.append('text').text("Locations").attr('x', w / 4).attr('y', h / 4)
+        compsvg.append('text').text("Locations").attr('x',parseInt(outerRadius)).attr('y', h / 4)
             .attr('text-anchor', 'middle').attr('class', 'plot-text')
 
 
-        compsvg.append('text').text("Actors").attr('x', 0.75 * w - 10).attr('y', h / 2 + 5)
+        compsvg.append('text').text("Actors").attr('x',2 * outerRadius + 18).attr('y', h / 2 + 5)
             .attr('text-anchor', 'middle').attr('class', 'plot-text')
 
         // console.log(company.top_disengagement_reasons);
