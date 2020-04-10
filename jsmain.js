@@ -261,7 +261,7 @@ function mileBarChart(id, svgID, data) {
 
     let carScale, carSpace;
 
-    if (w>400){
+    if (w>600){
         carScale = 20;
         carSpace = 42;
         wCircles = 10;
