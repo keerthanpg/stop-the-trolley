@@ -83,7 +83,7 @@ function months(i) {
 
 function applySelectionStyles(cid) {
 
-    console.log(cid,'style');
+    // console.log(cid,'style');
 
     $('.line-fleet_month').addClass("grey-lines");
     $('.line-disengagements_month').addClass("grey-lines");
@@ -93,6 +93,8 @@ function applySelectionStyles(cid) {
     $('.circle-miles_month').addClass("grey-circles");
     $('.fleet-circles').addClass("grey-circles");
     $('.mile-bar').addClass("grey-circles");
+    $('.circle-sec3-1').addClass("grey-circles");
+    $('.circle-sec3-2').addClass("grey-circles");
 
 
     $('#line-fleet_month-' + cid).removeClass('grey-lines')
@@ -104,6 +106,8 @@ function applySelectionStyles(cid) {
     $('.circle-miles_month-' + cid).removeClass('grey-circles')
     $('.company-' + cid).removeClass("grey-circles");
     $('#mile-bar-' + cid).removeClass("grey-circles");
+    $('#mdf-circles-' + cid).removeClass("grey-circles");
+    $('#mpd-circles-' + cid).removeClass("grey-circles");
 }
 
 function removeSelectonStyles() {
@@ -116,6 +120,8 @@ function removeSelectonStyles() {
     $('.circle-miles_month').removeClass("grey-circles");
     $('.fleet-circles').removeClass("grey-circles");
     $('.mile-bar').removeClass("grey-circles");
+    $('.circle-sec3-1').removeClass("grey-circles");
+    $('.circle-sec3-2').removeClass("grey-circles");
 
 }
 
@@ -147,7 +153,40 @@ function mileBarChart(id, svgID, data) {
 
         var div = d3.select("#tooltip");
 
-    svg.append('g').selectAll('.mile-bar').data(data).enter()
+        svg.append("text")
+        .attr("id", "text-title-plot-miles")
+        .attr("class", "text-title")
+        .attr('fill', '#000')
+        .attr('font-size',30)
+        .attr('x', w-10)
+        .attr('y', 120)
+        .attr('text-anchor', 'end')
+        .text('Total Miles')
+
+        svg.append("text")
+        .attr("id", "text-title-plot-miles")
+        .attr("class", "text-title")
+        .attr('fill', '#000')
+        .attr('font-size',30)
+        .attr('x', w-10)
+        .attr('y', 170)
+        .attr('text-anchor', 'end')
+        .text('&')
+
+        svg.append("text")
+        .attr("id", "text-title-plot-miles")
+        .attr("class", "text-title")
+        .attr('fill', '#000')
+        .attr('font-size',30)
+        .attr('x', w-10)
+        .attr('y', 220)
+        .attr('text-anchor', 'end')
+        .text('Total Fleet Size')
+
+
+    
+    
+        svg.append('g').selectAll('.mile-bar').data(data).enter()
         .append('rect').attr('class', 'mile-bar')
         .attr('id', (d) => ('mile-bar-' + d.company_id))
         .attr('x', xScale(0))
@@ -171,7 +210,7 @@ function mileBarChart(id, svgID, data) {
                     nameShortner[d.company_name] + '</span><br>' + (d.miles/1000).toFixed(2) + 'k Miles';
             })
                 .style("left", (d3.event.pageX - 100) + "px")
-                .style("top", (d3.event.pageY - 60) + "px");
+                .style("top", (d3.event.pageY - 80) + "px");
 
 
                 let cid = d.company_id;
@@ -220,16 +259,28 @@ function mileBarChart(id, svgID, data) {
 
     // console.log(totalAV, perc, fleet)
 
-    let carScale = 20;
-    let carSpace = 42;
+    let carScale, carSpace;
+
+    if (w>600){
+        carScale = 20;
+        carSpace = 42;
+        wCircles = 10;
+    }
+    else{
+        carScale = 11;
+        carSpace = 22;
+        wCircles = 5;
+    }
+
+    
 
 
-    svg.append('g').attr('transform', 'translate(' + (xScale.range()[1] - carSpace * 10) + ',' + (yScale.range()[1] - carSpace * 10) + ')')
+    svg.append('g').attr('transform', 'translate(' + (xScale.range()[1] - carSpace *wCircles) + ',' + (yScale.range()[1] - carSpace * (100/wCircles)) + ')')
         .selectAll('.fleet').data(fleet).enter()
         .append('circle')
         .attr('r', carScale)
         .attr('style', function (d, i) {
-            return 'transform:translate(' + carSpace * (i % 10) + 'px,' + carSpace * parseInt(i / 10) + 'px)';
+            return 'transform:translate(' + carSpace * (i % wCircles) + 'px,' + carSpace * parseInt(i / wCircles) + 'px)';
         })
         .attr('class', (d, i) => ('fleet-circles company-' + d[1]))
         .attr('fill', (d) => colorMap[d[0]])
@@ -243,7 +294,7 @@ function mileBarChart(id, svgID, data) {
                     nameShortner[d[0]] + '</span><br>' + d[3] + ' Registered Cars' + '<br>' + d[2]+'% of all AV Fleet';
             })
                 .style("left", (d3.event.pageX - 100) + "px")
-                .style("top", (d3.event.pageY - 60) + "px");
+                .style("top", (d3.event.pageY - 90) + "px");
 
 
                 let cid = d[1];
@@ -264,14 +315,14 @@ function mileBarChart(id, svgID, data) {
         
         
 
-    svg.append('g').attr('transform', 'translate(' + (xScale.range()[1] - carSpace * 10) + ',' + (yScale.range()[1] - carSpace * 10) + ')')
+    svg.append('g').attr('transform', 'translate(' + (xScale.range()[1] - carSpace * wCircles) + ',' + (yScale.range()[1] - carSpace * (100/wCircles)) + ')')
         .selectAll('.fleet').data(fleet).enter()
         .append('image')
         .attr('xlink:href', './res/av2.svg')
         .attr('width', carScale)
         .attr('height', carScale)
         .attr('style', function (d, i) {
-            return 'transform:translate(' + (carSpace * (i % 10) - 10) + 'px,' + (carSpace * parseInt(i / 10) - 10) + 'px)';
+            return 'transform:translate(' + (carSpace * (i % wCircles) - wCircles) + 'px,' + (carSpace * parseInt(i / wCircles) - wCircles) + 'px)';
         })
         .attr('class', (d, i) => ('cars-fleet company-' + d[1]))
 
@@ -428,7 +479,7 @@ function drawLinePlot(idSVG, filtered, data, modifier, scale, units) {
                                     nameShortner[data[c].company_name] + '</span><br>' + months(i) + "<br>" + val;
                             })
                                 .style("left", (d3.event.pageX - 100) + "px")
-                                .style("top", (d3.event.pageY - 60) + "px");
+                                .style("top", (d3.event.pageY - 90) + "px");
 
 
                             let cid = $(this).attr('class').replace('circles circle-' + modifier + '-', '').replace(' circle-' + modifier, '');
@@ -477,7 +528,7 @@ function drawMilesDisFleet(idSVG, data) {
     const w = +d3.select(idSVG).style('width').slice(0, -2);
     const h = +d3.select(idSVG).style('height').slice(0, -2);
 
-    const paddingX = 50;
+    const paddingX = 100;
     const paddingY = 40;
 
 
@@ -487,12 +538,17 @@ function drawMilesDisFleet(idSVG, data) {
 
 
 
-    const xScale = d3.scaleLinear()
-        .domain([0, d3.max(data, (d) => +d.miles)])
+    const xScale = d3.scaleLog()
+        .domain([1, d3.max(data, (d) => +d.miles)*2])
         .range([paddingX, w - paddingX])
+        // .ticks(10)
+    
+    // let xFormat10 = xScale.tickFormat(100000)
 
-    const yScale = d3.scaleLinear()
-        .domain(d3.extent(data, (d) => +d.disengagements))
+    // xScale.ticks(10).map(xFormat10)
+
+    const yScale = d3.scaleLog()
+        .domain([1,d3.max(data, (d) => +d.disengagements)])
         .range([h - paddingY, paddingY]);
 
 
@@ -505,6 +561,11 @@ function drawMilesDisFleet(idSVG, data) {
 
     d3.selectAll('#x-axis-sec3-1').remove();
     d3.selectAll('#y-axis-sec3-1').remove();
+    d3.selectAll('#text-title-plot-milesdisfleet-y').remove();
+    d3.selectAll('#text-title-plot-milesdisfleet-x').remove();
+    d3.selectAll('#text-title-plot-milesdisfleet-fleet').remove();
+    d3.selectAll('.legend-fleet-circle').remove();
+    d3.selectAll('.legend-fleet-text').remove();
 
     svg.append("g")
         .attr("class", "x axis-sec3")
@@ -515,7 +576,7 @@ function drawMilesDisFleet(idSVG, data) {
                 return d / 1000 + 'k'
             })
             .tickSize(2 * paddingY - h)
-            .ticks(11)
+            .ticks(6)
         ); // Create an axis component with d3.axisBottom
 
 
@@ -530,7 +591,7 @@ function drawMilesDisFleet(idSVG, data) {
             .tickFormat(function (d) {
                 return d;
             })
-            .ticks(8)
+            .ticks(3)
         ); // Create an axis component with d3.axisLeft
 
 
@@ -540,23 +601,53 @@ function drawMilesDisFleet(idSVG, data) {
 
 
     svg.append("text")
-        .attr("id", "text-title-plot-milesdisflee-y")
+        .attr("id", "text-title-plot-milesdisfleet-y")
         .attr("class", "text-title")
         .attr('fill', '#000')
         .attr('x', -h/2)
-        .attr('y', w/32)
+        .attr('y', 50)
         .attr('text-anchor', 'middle')
         .attr('transform', 'rotate(270)')
-        .text("disengagements")
+        .text("Disengagements (Log Scale)")
 
     svg.append("text")
         .attr("id", "text-title-plot-milesdisfleet-x")
         .attr("class", "text-title")
         .attr('fill', '#000')
         .attr('x', w/2)
-        .attr('y', h + h/2048)
+        .attr('y', h - 10)
         .attr('text-anchor', 'middle')
-        .text("miles")
+        .text("Miles (Log Scale)")
+
+        svg.append("text")
+        .attr("id", "text-title-plot-milesdisfleet-fleet")
+        .attr("class", "text-title")
+        .attr('fill', '#000')
+        .attr('x', w-50)
+        .attr('y', 50)
+        .attr('text-anchor', 'middle')
+        .text("Fleet Size")
+
+        svg.selectAll('.legend-fleet-text').data([25,50,100,200]).enter().append("text")
+        .attr("class", "text-title legend-fleet-text")
+        .attr('fill', '#000')
+        .attr('x', w-30)
+        .attr('y', (d,i)=>(h/2 + i*80 - 110))
+        .attr('text-anchor', 'middle')
+        .text((d)=>(d))
+
+
+
+    svg.selectAll('.legend-fleet-circle').data([25,50,100,200]).enter().append("circle")
+        .attr("class", "legend-fleet-circle")
+        .attr('stroke', '#000')
+        .attr('fill', 'none')
+        .attr('cx', w-70)
+        .attr('cy', (d,i)=>(h/2 + i*80- 120))
+        .attr('r',(d)=>(Math.sqrt(d)*2))
+        
+
+
 
 
 
@@ -567,32 +658,34 @@ function drawMilesDisFleet(idSVG, data) {
         .data(data).enter()
         .append('circle')
         .attr("class", "circles circle-sec3-1")
-        .attr("cx", (d, i) => xScale(d.miles))
-        .attr('cy', (d) => yScale(d.disengagements))
+        .attr('id',(d)=>('mdf-circles-'+d.company_id))
+        .attr("cx", (d, i) => xScale(d.miles+1))
+        .attr('cy', (d) => yScale(d.disengagements+1))
         .attr('r', d => Math.sqrt(d.fleet) * 2)
         .attr('fill', (d) => colorMap[d.company_name])
-    // .on("mouseover", function (d,i) {
-    //     div.transition()
-    //         .duration(200)
-    //         .style("display", 'block');
-    //     div.html(() => {
-    //         let c = +d3.select(this).attr('class').replace('circles ', '').replace('circle-'+modifier+'-', '').replace('circle-'+modifier, '');
-    //         console.log(c);
-    //         let val = '';
-    //         if (scale===1000) val = (d/1000).toFixed(2)+'k '+units;
-    //         else val = d+' '+units;
-    //         return '<span style="font-weight:800; letter-spacing: 2px; color:#c0392b; text-transform: uppercase">' +
-    //             data[c].company_name + '</span><br>' + months(i) + "<br>" + val;
-    //     })
-    //         .style("left", (d3.event.pageX - 100) + "px")
-    //         .style("top", (d3.event.pageY - 60) + "px");
-    // })
-    // .on("mouseout", function (d) {
-    //     div.transition()
-    //         .duration(500)
-    //         // .style("opacity", 0)
-    //         .style("display", 'none');
-    // })
+        .attr('opacity',0.6)
+    .on("mouseover", function (d,i) {
+        div.transition()
+            .duration(200)
+            .style("display", 'block');
+        div.html(() => {
+            let c = +d3.select(this).attr('id').replace('mdf-circles-', '');
+            applySelectionStyles(c);
+            return '<span style="font-weight:800; letter-spacing: 2px; color:#c0392b; text-transform: uppercase">' +
+               nameShortner[data[c].company_name] + '</span><br>Miles : ' +  (data[c].miles/1000).toFixed(2) + "k<br>Disengagements : " + data[c].disengagements + "<br>Fleet Size : " + data[c].fleet;
+        })
+            .style("left", (d3.event.pageX - 100) + "px")
+            .style("top", (d3.event.pageY - 80) + "px");
+
+            
+    })
+    .on("mouseout", function (d) {
+        div.transition()
+            .duration(500)
+            // .style("opacity", 0)
+            .style("display", 'none');
+            removeSelectonStyles()
+    })
 
 
 
@@ -637,7 +730,7 @@ function drawMilesPerDis(idSVG, data) {
     svg.append("g")
         .attr("class", "x axis-sec3")
         .attr("id", "x-axis-sec3-2")
-        .attr("transform", "translate(0," + (h - 20) + ")")
+        .attr("transform", "translate(0," + (h - 30) + ")")
         .call(d3.axisBottom(xScale)
             .tickFormat((d) => {
                 return d / 1000 + 'k'
@@ -657,9 +750,9 @@ function drawMilesPerDis(idSVG, data) {
         .attr("class", "text-title")
         .attr('fill', '#000')
         .attr('x', w/2)
-        .attr('y', h + h/32)
+        .attr('y', h-5)
         .attr('text-anchor', 'middle')
-        .text("miles per disengagement")
+        .text("Miles Per Disengagement")
 
 
 
@@ -670,34 +763,36 @@ function drawMilesPerDis(idSVG, data) {
         .data(data).enter()
         .append('circle')
         .attr("class", "circles circle-sec3-2")
+        .attr("id", (d)=>("mpd-circles-"+d.company_id))
         .attr("cx", (d, i) => xScale(d.miles_per_disengagement))
-        .attr('cy', h / 2)
-        .attr('r', d => Math.sqrt(d.fleet) * 2)
+        .attr('cy', (d,i)=>(h / 2 + 4*(Math.floor(Math.random() * 11)-5)))
+        .attr('r', 4)
         .attr('fill', (d) => colorMap[d.company_name])
-    // .attr('opacity',0.8)
-    // .on("mouseover", function (d,i) {
-    //     div.transition()
-    //         .duration(200)
-    //         .style("display", 'block');
-    //     div.html(() => {
-    //         let c = +d3.select(this).attr('class').replace('circles ', '').replace('circle-'+modifier+'-', '').replace('circle-'+modifier, '');
-    //         console.log(c);
-    //         let val = '';
-    //         if (scale===1000) val = (d/1000).toFixed(2)+'k '+units;
-    //         else val = d+' '+units;
-    //         return '<span style="font-weight:800; letter-spacing: 2px; color:#c0392b; text-transform: uppercase">' +
-    //             data[c].company_name + '</span><br>' + months(i) + "<br>" + val;
-    //     })
-    //         .style("left", (d3.event.pageX - 100) + "px")
-    //         .style("top", (d3.event.pageY - 60) + "px");
-    // })
-    // .on("mouseout", function (d) {
-    //     div.transition()
-    //         .duration(500)
-    //         // .style("opacity", 0)
-    //         .style("display", 'none');
-    // })
-
+        .attr('opacity',0.8)
+        .on("mouseover", function (d,i) {
+            div.transition()
+                .duration(200)
+                .style("display", 'block');
+            div.html(() => {
+                let c = +d3.select(this).attr('id').replace('mpd-circles-', '');
+                applySelectionStyles(c);
+                return '<span style="font-weight:800; letter-spacing: 2px; color:#c0392b; text-transform: uppercase">' +
+                   nameShortner[data[c].company_name] + '</span><br>Miles Per Disengagement: ' +  (data[c].miles_per_disengagement/1000).toFixed(2) + "k";
+            })
+                .style("left", (d3.event.pageX - 100) + "px")
+                .style("top", (d3.event.pageY - 80) + "px");
+    
+                
+        })
+        .on("mouseout", function (d) {
+            div.transition()
+                .duration(500)
+                // .style("opacity", 0)
+                .style("display", 'none');
+                removeSelectonStyles()
+        })
+    
+    
 
 
 
@@ -719,9 +814,55 @@ function drawDisLocation(id, data) {
     var div = d3.select("#tooltip");
 
     data.map(company => {
-        let comp = d3.select(id).append('div').attr('class', 'col-xs-2 location-donuts').attr('id', 'location-company-' + company.company_id);
+        let comp = d3.select(id).append('div').attr('class', 'col-md-2 col-xs-5 location-donuts').attr('id', 'location-company-' + company.company_id);
         const w = +d3.select('#location-company-' + company.company_id).style('width').slice(0, -2);
         const h = 200;
+
+        comp.on("mouseover", function (d,i) {
+            div.transition()
+                .duration(200)
+                .style("display", 'block');
+            div.html(() => {
+                let c = company.company_id;
+                applySelectionStyles(c);
+                let returnText = '<span style="font-weight:800; letter-spacing: 2px; color:#c0392b; text-transform: uppercase">' + nameShortner[data[c].company_name] + '</span><br><span style="font-weight:800;color:#f1c40f" >Disengagements - Location</span>';
+
+                company.disengagements_location.map(d=>{
+                    
+                    returnText = returnText+'<br>'+d.location + ' : ' + d.total + ' ('+(d.total*100/company.disengagements).toFixed(1)+'%)';
+                })
+
+                returnText = returnText + '<br><br><span style="font-weight:800;color:#f1c40f" >Disengagements - Actor</span>'
+
+                company.disengagements_actor.map(d=>{
+                    
+                    returnText = returnText+'<br>'+d.actor + ' : ' + d.total + ' ('+(d.total*100/company.disengagements).toFixed(1)+'%)';
+                })
+
+                returnText = returnText + '<br><br><span style="font-weight:800;color:#f1c40f" >Disengagements - Top reasons</span>'
+
+                company.top_disengagement_reasons.map((d,i)=>{
+                    
+                    returnText = returnText+'<br>Reason '+(i+1)+' - '+d.reason + ' : ' + d.total + ' ('+(d.total*100/company.disengagements).toFixed(1)+'%)';
+                })
+
+                return returnText;
+            })
+                .style("left", (d3.event.pageX - 100) + "px")
+                .style("top", (d3.event.pageY - 80) + "px");
+    
+                
+        })
+        .on("mouseout", function (d) {
+            div.transition()
+                .duration(500)
+                // .style("opacity", 0)
+                .style("display", 'none');
+                removeSelectonStyles()
+        })
+
+
+
         let compsvg = comp.append('svg').attr('height', h).attr('width', w);
 
         let outerRadius = 40;
@@ -879,7 +1020,13 @@ Promise.all(
 
         data.map((d, i) => {
             // console.log(d.company_name, d.disengagements_reason.length)
-            data[i]['miles_per_disengagement'] = d.miles / d.disengagements;
+            if(d.disengagements>0){
+                data[i]['miles_per_disengagement'] = d.miles / d.disengagements;
+            }
+            else{
+                data[i]['miles_per_disengagement'] = d.miles;
+            }
+            
             // data[i]['miles_per_disengagement_month'] = d.miles_month.map(function(n, j) { return n / d.disengagements_month[j]; });
             data[i]['miles_per_disengagement_month'] = d.miles_month.map(function (n, j) { return 0 });
             data[i]['company_id'] = i;
@@ -940,9 +1087,9 @@ Promise.all(
                         drawLinePlot('#miles-month-svg', returnedValues, data, 'miles_month', 1000, 'Miles');
                         drawLinePlot('#disengagements-month-svg', returnedValues, data, 'disengagements_month', 1, 'Disengagements');
                         drawLinePlot('#fleet-month-svg', returnedValues, data, 'fleet_month', 1, 'Fleet');
-                        drawMilesDisFleet('#miles-disengagement-fleet-svg', returnedValues);
-                        drawMilesPerDis('#miles-per-disengagement-svg', returnedValues);
-                        drawDisLocation('#disengagement-location', returnedValues);
+                        // drawMilesDisFleet('#miles-disengagement-fleet-svg', returnedValues);
+                        // drawMilesPerDis('#miles-per-disengagement-svg', returnedValues);
+                        
                         // milesPerDisengagement('#miles-per-disengagement',data);
 
                         // drawLinePlot('#miles-per-disengagement-month-svg', returnedValues, data, 'miles_per_disengagement_month',1,'Miles/Disengagement');
@@ -950,8 +1097,7 @@ Promise.all(
                         $.when(initLinePlot('#miles-month', 'miles-month-svg')).then(drawLinePlot('#miles-month-svg', returnedValues, data, 'miles_month', 1000, 'Miles'));
                         $.when(initLinePlot('#disengagements-month', 'disengagements-month-svg')).then(drawLinePlot('#disengagements-month-svg', returnedValues, data, 'disengagements_month', 1, 'Disengagements'));
                         $.when(initLinePlot('#fleet-month', 'fleet-month-svg')).then(drawLinePlot('#fleet-month-svg', returnedValues, data, 'fleet_month', 1, 'Fleet'));
-                        $.when(initMilesDisFleet('#miles-disengagement-fleet', 'miles-disengagement-fleet-svg')).then(drawMilesDisFleet('#miles-disengagement-fleet-svg', returnedValues));
-                        $.when(initMilesPerDis('#miles-per-disengagement', 'miles-per-disengagement-svg')).then(drawMilesPerDis('#miles-per-disengagement-svg', returnedValues));
+                        
                         // $.when(initLinePlot('#miles-per-disengagement-month', 'miles-per-disengagement-month-svg')).then(drawLinePlot('#miles-per-disengagement-month-svg', returnedValues, data, 'miles_per_disengagement_month',1,'Miles/Disengagement'));
                         plotInitialized = true;
                     }
@@ -959,8 +1105,10 @@ Promise.all(
             });
 
         $('#company-search').dropdown('set selected', ["Waymo", "Cruise", "Pony.ai", "Baidu", "Nuro"]);
-
-
+        
+        drawDisLocation('#disengagement-location', data);
+        $.when(initMilesDisFleet('#miles-disengagement-fleet', 'miles-disengagement-fleet-svg')).then(drawMilesDisFleet('#miles-disengagement-fleet-svg', data));
+        $.when(initMilesPerDis('#miles-per-disengagement', 'miles-per-disengagement-svg')).then(drawMilesPerDis('#miles-per-disengagement-svg', data));
 
 
 
