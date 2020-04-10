@@ -26,6 +26,8 @@
     </head>
     <body>
 
+        <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0&appId=328142808109908&autoLogAppEvents=1"></script>
         <div id="main" class="row center-xs">
             <div id="section-1" class="row center-xs middle-xs">
                 <div class="col-xs-8 center-xs row">
@@ -36,7 +38,7 @@
                             The CA DMV, on Feb 26, 2020 released a batch of reports filed by multiple companies testing autonomous cars in the bay area. All companies testing autonomous cars on public roads are 
                             required to report statistics and details related to miles driven and diengagements, otherwise known as human-takeovers. The batch of data visualised here corresponds to the period spanning Dec 1, 2018 to Nov 30, 2019. <br> <br>
 
-                            While the statistics are useful to look at large scale trends, they cannot be taken as an apples-to-apples comparison between companies. In addition to the fact that various companies are targeting different markets and business models, miles per disengagement is a faulty approximation of maturity of the system since the numbers are affected by where companies drive, the difficulty of driving scenarios cars are tested in, which diengagements are considered valid for reporting by the company, etc. This allows for a wide room of interpretation and as such these numbers should be taken with a truck load of salt. <br> <br>
+                            While the statistics are useful to look at large scale trends, they cannot be taken as an apples-to-apples comparison between companies. In addition to the fact that various companies are targeting different markets and business models, miles per disengagement is a faulty approximation of maturity of the system since the numbers are affected by where companies drive, the difficulty of driving scenarios cars are tested in, which diengagements are considered valid for reporting by the company, etc. This allows for a wide room of interpretation and as such these numbers should be taken with a self-driven truck load of salt. <br> <br>
 
                             What we've attempted here is a pure visualisation of aggregate reported statistics, without attempting to draw any conclusions. Feel free to play around with it and let us know if you spot any inaccuracies. Original data dumps for disengagements can be found <a href=https://www.dmv.ca.gov/portal/dmv/detail/vr/autonomous/disengagement_report_2019>here</a>. Additionally, reports of collisions involving AVs can be found <a href=https://www.dmv.ca.gov/portal/dmv/detail/vr/autonomous/autonomousveh_ol316>here</a>. Note that here, a car is counted in fleet size only if it clocks at least 1 mile over the entire reporting period and does not account for cars that are registered but has been inactive. <br> <br>
 
@@ -63,7 +65,7 @@
 
             <div id="section-3" class="row center-xs middle-xs">
                     <div class="col-xs-8" id="miles-disengagement-fleet"></div>
-                    <div class="col-xs-8" id="miles-per-disengagement" style="margin-top: 50" ></div>
+                    <div class="col-xs-8" id="miles-per-disengagement" style="margin-top: 50px;margin-bottom: 50px" ></div>
                     <div class="col-xs-8 row center-xs">
                         <p>Disengagements Locations{<i class="circle icon" style="color:#2c3e50"></i>: Street | <i class="circle icon"  style="color:#8e44ad"></i>: Highway | <i class="circle icon"  style="color:#27ae60"></i>: Freeway | <i class="circle icon"  style="color:#95a5a6"></i>: Parking Facility | <i class="circle icon"  style="color:#f1c40f"></i>: Rural}</p>
                         <p>Disengagement initiated by Actors {👤: Test Driver | 🤖: AV System}</p>
@@ -72,13 +74,19 @@
                     <div class="col-xs-8" id="disengagement-reason"></div>
                     
             </div>
-    
 
+            <div class="col-xs-12"><p style="margin:20px">Made with ❤️ by <a href="https://twitter.com/keerthanpg">Keerthana</a> and <a href="https://twitter.com/nuwandavek">Vivek</a></p></div>
+    
+            <div class="col-xs-12 row center-xs middle-xs" style="margin-bottom: 50px">
+                    <div style="padding: 5px" class="fb-like" data-href="https://keerthanpg.github.io/stop-the-trolley/" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
+                    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
 
 
         </div>
 
         <div id="tooltip"></div>
+        <div id="tooltip2"></div>
 
         <script src="jsmain.js"></script>
     </body>
