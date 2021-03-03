@@ -1,0 +1,175 @@
+body{
+    font-family : 'Crimson Text' !important;
+}
+
+
+#title{
+    font-family: 'Josefin Sans';
+    text-transform: uppercase;
+    font-size: 60px;
+    margin: 0px;
+    line-height: 1;
+    font-weight: 900;
+    margin-top: 50px;
+}
+
+#sub-title{
+    font-size: 18px;
+    font-family: 'Roboto Condensed';
+}
+
+
+.explanation{
+    font-size: 20px !important;
+    text-align: justify;
+}
+
+#section-1{
+    min-height: 100vh;
+}
+
+#section-2{
+    /* background: #333; */
+    width: 100%;
+}
+
+
+#section-3{
+    width: 100%;
+}
+
+
+#miles{
+    height: 700px;
+    background: #eee;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+
+#miles-month,#disengagements-month, #miles-per-disengagement-month,#fleet-month{
+    height: 200px;
+    background: #eee;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+#miles-per-disengagement{
+    height: 100px;
+    background: #eee;
+    border-radius: 5px;
+    /* margin: 5px; */
+}
+
+#miles-disengagement-fleet{
+    height: 400px;
+    background: #eee;
+    border-radius: 5px;
+    /* margin: 5px; */
+}
+
+
+
+.mile-bar-text{
+    /* color:#fff; */
+    /* fill:#fff; */
+    font-family: 'Roboto Condensed';
+    font-size: 14px;
+}
+
+div#tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: auto;
+    height: auto;
+    padding: 20px;				
+    font: 12px sans-serif;		
+    background: #333;
+    color: #fff;	
+    border: 0px;		
+    border-radius: 3px;			
+    pointer-events: none;			
+    display: none;
+    /* opacity: 0.5; */
+}
+
+
+.tick>line{
+    /* color: #fff; */
+    stroke-dasharray: 5 3;
+    opacity: 0.3;
+}
+
+.axis-sec3>.tick>line{
+    color: #000;
+    stroke-dasharray: 5 3;
+    opacity: 0.3;
+}
+
+.axis>path{
+    /* color: #fff; */
+    display: none;
+}
+
+.tick>text{
+    font-size: 12px;
+    font-family: 'Roboto Condensed';
+    margin-top: 5px;
+    /* color: #fff; */
+    /* fill: #fff; */
+}
+
+.axis-sec3>.tick>text{
+    font-size: 12px;
+    font-family: 'Roboto Condensed';
+    margin-top: 5px;
+    color: #000;
+    fill: #000;
+}
+
+.text-title{
+    font-family: 'Roboto Condensed';
+    fill: #000;
+}
+
+
+
+.plot-text{
+    font-family: 'Roboto Condensed'
+}
+
+
+.location-donuts{
+    background: #efefef;
+    border-radius: 5px;
+    /* border: 1px #aaa solid; */
+    margin: 10px;
+}
+
+.location-donuts>*{
+    pointer-events: none;
+}
+
+.bold{
+    font-weight: 900;
+    font-size: 18px;
+}
+
+
+.grey-lines{
+    stroke: #aaa;
+}
+
+.grey-circles{
+    fill: #aaa;
+}
+
+.cars-fleet{
+    pointer-events: none;
+}
+
+
+#miles-disengagement-fleet-svg>.axis-sec3>path, #miles-per-disengagement-svg>.axis-sec3>path{
+    color: #eee;
+}
+
