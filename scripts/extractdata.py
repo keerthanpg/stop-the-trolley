@@ -19,13 +19,15 @@ for k,v in months.items():
 	inverse_month[v] = k
 
 def get_month(row):
+	print(row)
 	if '.' in row[2]:
-		month = row[2].split('.')[0]
+		month = int(row[2].split('.')[0])
+		if(month > 2000):
+			month = int(row[2].split('.')[1])
 		#print(month)
-		month = int(month)
-	elif 'CRUISE' in row[0]:
-		month = row[2].split('/')[1]
-		month = inverse_month[month]
+		#month = int(month)
+	elif('EasyMile' in row[0]): 
+		month = int(row[2].split('-')[1])
 	elif('/' in row[2]): 
 		month = row[2].split('/')[0]
 		month = int(month)
@@ -35,9 +37,12 @@ def get_month(row):
 	elif('Toyota' in row[0]): 
 		month = row[2].split('-')[1]
 		month = int(month)
-	elif('-' in row[2]): 
-		month = row[2].split('-')[0]
-		month = int(month)
+	elif 'Apple' in row[0]:
+		month = inverse_month[row[2].split('-')[1]]
+	elif('CRUISE' in row[0]): 
+		month = row[2].split('-')[1]
+		month = inverse_month[month]
+	
 	elif 'Aurora' in row[0]:
 		month = row[2][4:6]
 		month = int(month)
@@ -47,6 +52,7 @@ def get_month(row):
 	elif 'Phantom' in row[0]:
 		month = row[2][:3]
 		month = inverse_month[month]
+	
 
 	month = int(month)
 	if(month == 12):
@@ -54,7 +60,7 @@ def get_month(row):
 	return month
 
 def process_disengagements(filename):
-	fp = open(filename, mode, **kwargs) 
+	fp = open(filename, mode, encoding='windows-1254', **kwargs) 
 	reader = csv.reader(fp, delimiter=',', quotechar='"')
 	next(reader, None)  # skip the headers
 	data_read = [row for row in reader]
@@ -65,7 +71,10 @@ def process_disengagements(filename):
 			continue
 		month = get_month(row)
 		print(row)
+		print("month =", month)
 		data[row[0]]["disengagements_month"][month] += 1
+
+		row[8] = row[8].replace('\n', '')
 
 		if row[7] not in data[row[0]]["disengagements_location"]:
 			data[row[0]]["disengagements_location"][row[7]] = {}
@@ -109,7 +118,7 @@ def process_miles(filename):
 			data[row[0]]["disengagements_reason"] = {}
 			data[row[0]]["disengagements_actor"] = {}
 			data[row[0]]["disengagements_location"] = {}
-		data[row[0]]["miles"] += float(row[16])
+		data[row[0]]["miles"] += float(row[16].replace(',',''))
 		data[row[0]]["disengagements"] += int(row[3])
 		
 
@@ -124,12 +133,11 @@ def process_miles(filename):
 		if(not all_zero):
 			data[row[0]]["fleet"] += 1
 
+process_miles('2020-Autonomous-Mileage-Reports_Amended-4.csv')
+process_miles('2019-20-Autonomous-Mileage-Reports-first-time-filers.csv')
 
-process_miles('2019AutonomousMileageReports.csv')
-process_miles('2018-19_Autonomous_Mileage_Reports(firsttimefilers).csv')
-
-process_disengagements('2019AutonomousVehicleDisengagementReports.csv')
-process_disengagements('2018-19_AutonomousVehicleDisengagementReports(firsttimefilers).csv')
+process_disengagements('2020-Autonomous-Vehicle-Disengagement-Reports.csv')
+process_disengagements('2019-20-Autonomous-Vehicle-Disengagement-Reports-first-time-filers.csv')
 
 data_array = []
 for k, v in data.items():
