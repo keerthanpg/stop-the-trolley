@@ -34,9 +34,14 @@ const nameShortner = {
     "RIDECELL INC": "Ridecell",
     "Ambarella Corp.": "Ambarella",
     "Box Bot Inc.": "Box Bot",
-    "Apex.Ai, Inc.": "Apex.ai"
-}
+    "Apex.Ai, Inc.": "Apex.ai",
+    "Argo AI, LLC": "Argo AI",
+    "EasyMile": "EasyMile",
+    "Atlas Robotics, Inc.": "Atlas Robotics",
+    "Deeproute.ai, Ltd.": "Deeproute AI",
+    "QCraft Inc.": "QCraft"
 
+}
 const colorMap = {
     "Waymo LLC": "#27ae60",
     "CRUISE LLC": "#c0392b",
@@ -1009,7 +1014,7 @@ function drawDisLocation(id, data) {
 
 Promise.all(
     [
-        d3.json('../res/data.json')
+        d3.json('./data.json')
 
     ]).then(function (data) {
         data = data[0];
