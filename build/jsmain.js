@@ -732,6 +732,8 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
     let milesDiff = {};
     let finDiff = []
 
+    let rejectedDiff = []
+
     for (var i = 0; i < names.length; i++) {
         milesDiff[names[i]] = { 'Y19_miles': 0, 'Y20_miles': 0, 'Y19_fleet': 0, 'Y20_fleet': 0, 'Y19_dis': 0, 'Y20_dis': 0 }
     }
@@ -759,15 +761,19 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
             (milesDiff[names[i]].Y20_fleet - milesDiff[names[i]].Y19_fleet) * 100 / milesDiff[names[i]].Y19_fleet])
 
         }
+        else {
+            rejectedDiff.push([nameShortner[names[i]], milesDiff[names[i]]])
+        }
     }
     // let aa = finDiff.slice().sort((b, a) => (a[1] - b[1]));
     // console.log(aa)
     // let bb = finDiff.slice().sort((b, a) => (a[2] - b[2]));
     // console.log(bb)
 
-    console.log(finDiff.slice().sort((b, a) => (a[1] - b[1])).map(d => d[0]))
-    console.log(finDiff.slice().sort((b, a) => (a[2] - b[2])).map(d => d[0]))
+    // console.log(finDiff.slice().sort((b, a) => (a[1] - b[1])).map(d => d[0]))
+    // console.log(finDiff.slice().sort((b, a) => (a[2] - b[2])).map(d => d[0]))
 
+    console.log('Rejected Diff', rejectedDiff);
     const xScaleMiles = d3.scalePoint()
         .domain(finDiff.slice().sort((b, a) => (a[1] - b[1])).map(d => d[0]))
         .range([paddingXLeft, w - paddingXRight])
