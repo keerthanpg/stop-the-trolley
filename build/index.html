@@ -25,14 +25,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3EWQKCE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PSW3EWQKCE"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  gtag('config', 'G-PSW3EWQKCE');
-</script>
+        gtag('config', 'G-PSW3EWQKCE');
+    </script>
 
 </head>
 
@@ -47,47 +47,70 @@
                 <p class="col-xs-12" id="title">Stop the Trolley!</p>
                 <p class="col-xs-12" id="sub-title">California Autonomous Driving Test Statistics 2020</p>
                 <img class="col-xs-6" src="res/source.gif">
+
+                <a class="col-xs-10 col-md-8 explanation"
+                    style="text-align: center; background: #eee; border-radius: 5px;"
+                    href="https://keerthanapg.com/stop-the-trolley/2019">Click here for
+                    last year's visualization :
+                    California Autonomous Driving Test Statistics 2019</a>
                 <p class="col-xs-10 col-md-8 explanation">
-                    The CA DMV, on Feb 9th, 2021 released a batch of reports filed by multiple companies
-                     testing autonomous cars in the bay area. All companies testing autonomous cars on public 
-                     roads are required to report statistics and details related to miles driven and diengagements, 
-                     otherwise known as human-takeovers. The batch of data visualised here corresponds to the period 
-                     spanning Dec 1, 2019 to Nov 30, 2020.
+                    <br>The CA DMV, on Feb 9th, 2021
+                    released a batch of reports filed by multiple companies
+                    testing autonomous cars in the bay area. All companies testing autonomous cars on public
+                    roads are required to report statistics and details related to miles driven and disengagements,
+                    otherwise known as human-takeovers. The batch of data visualized here corresponds to the period
+                    spanning Dec 1, 2019 to Nov 30, 2020.
                     <br> <br>
 
-                    While the statistics are useful to look at large scale trends, they cannot be taken as an a
-                    pples-to-apples comparison between companies. In addition to the fact that various 
-                    companies are targeting different markets and business models, miles per disengagement is a 
-                    faulty approximation of maturity of the system since the numbers are affected by where companies drive, 
-                    the difficulty of driving scenarios cars are tested in, which diengagements are considered valid for 
-                    reporting by each company, etc. This allows for a wide room of interpretation and as such 
+                    While the statistics are useful to look at large scale trends, they cannot be taken as an
+                    apples-to-apples comparison between companies. In addition to the fact that various companies are
+                    targeting different markets and business models, miles per disengagement is a
+                    faulty approximation of maturity of the system since the numbers are affected by where companies
+                    drive,
+                    the difficulty of driving scenarios cars are tested in, which disengagements are considered valid
+                    for
+                    reporting by each company, etc. This allows for a wide room of interpretation and as such
                     these numbers should be taken with a self-driven truck load of salt.
-                    <br> <br>      
+                    <br>
 
-                    What we've attempted here is a pure visualisation of aggregate reported statistics. 
-                    There are a few trends that is obviously evident:
                 </p>
-                    <ul class="col-xs-10 col-md-8 explanation">
-                    <li>Compared to 2019, most companies has clocked in fewer miles in 2020 due to the pandemic. Exceptions are 
-                    Apple, Zoox and others, who actually drove more miles in 2020 than in 2019. </li>
-                    <li>For most companies, miles driven almost halved in March 2020 and became practically zero in April 
-                        and May 2020 while local governments advised strict shelter-in-place. Since then driving has 
-                        picked up but not quite matched pre-covid levels. This evidently shows that across the industry the 
+                <ul class="col-xs-10 col-md-8 explanation">
+                    What we've attempted here is a pure visualization of aggregate reported statistics.
+                    There are a few trends that is obviously evident:
+
+                    <li>Compared to 2019, most companies has clocked in fewer miles in 2020 due to the pandemic.
+                        Exceptions are
+                        Apple, Zoox and others, who actually drove more miles in 2020 than in 2019. </li>
+                    <li>For most companies, miles driven almost halved in March 2020 and became practically zero in
+                        April
+                        and May 2020 while local governments advised strict shelter-in-place. Since then driving has
+                        picked up but not quite matched pre-covid levels. This evidently shows that across the industry
+                        the
                         pandemic has deccelerated the progress of AV testing and development.</li>
-                    <li>Interestingly, among the largest players, Cruise has only had 27 reportable disengagements the 
-                    entire year and around 60% of them are “precautionary takeover on account of other road user behaving 
-                    poorly”. Waymo also reported only 21 disengagements across the year although the reasons they 
-                    mentioned admit errors of the AV system.</li>
+                    <li>Interestingly, among the largest players, Cruise has only had 27 reportable disengagements the
+                        entire year and around 60% of them are “precautionary takeover on account of other road user
+                        behaving
+                        poorly”. Waymo also reported only 21 disengagements across the year although the reasons they
+                        mentioned admit errors of the AV system.</li>
                 </ul>
                 <p class="col-xs-10 col-md-8 explanation">
-                    Feel free to play around with it and let us know if you spot any inaccuracies. Original data dumps for 
-                    disengagements can be found 
-                    <a href="https://www.dmv.ca.gov/portal/vehicle-industry-services/autonomous-vehicles/disengagement-reports/">here</a>. 
-                    Additionally, reports of collisions involving AVs can be found 
-                    <a href="https://www.dmv.ca.gov/portal/vehicle-industry-services/autonomous-vehicles/autonomous-vehicle-collision-reports/">here</a>.
-                    Note that here, a car is counted in fleet size only if it clocks at least 1 mile over the entire 
-                    reporting period and does not account for cars that are registered but have been inactive. <br><br>
+                    Feel free to play around with it and let us know if you spot any inaccuracies. Original data dumps
+                    for
+                    disengagements can be found
+                    <a
+                        href="https://www.dmv.ca.gov/portal/vehicle-industry-services/autonomous-vehicles/disengagement-reports/">here</a>.
+                    Additionally, reports of collisions involving AVs can be found
+                    <a
+                        href="https://www.dmv.ca.gov/portal/vehicle-industry-services/autonomous-vehicles/autonomous-vehicle-collision-reports/">here</a>.
+                    Note that here, a car is counted in fleet size only if it clocks at least 1 mile over the entire
+                    reporting period and does not account for cars that are registered but have been inactive. <a
+                        href="https://keerthanapg.com/stop-the-trolley/2019">Do checkout our visualization of last
+                        year's
+                        data (California Autonomous Driving Test Statistics 2019) here!</a><br><br>
                 </p>
+                <p class="col-md-12 col-xs-12 explanation" style="text-align: center;"> <b> Note : Hover over / Click
+                        various visual elements below to see more details.</b></p>
+
             </div>
 
         </div>
@@ -112,25 +135,52 @@
             <div class="col-md-8 col-xs-12 " id="miles-per-disengagement" style="margin-top: 50px;margin-bottom: 50px">
             </div>
             <div class="col-md-8 col-xs-12  row center-xs">
-                <p>Disengagements Locations{<i class="circle icon" style="color:#2c3e50"></i>: Street | <i
-                        class="circle icon" style="color:#8e44ad"></i>: Highway | <i class="circle icon"
-                        style="color:#27ae60"></i>: Freeway | <i class="circle icon" style="color:#95a5a6"></i>: Parking
+                <p class="col-md-12 col-xs-12 explanation" style="text-align: center;">Disengagements Locations{<i
+                        class="circle icon" style="color:#2c3e50"></i>: Street | <i class="circle icon"
+                        style="color:#8e44ad"></i>: Highway
+                    | <i class="circle icon" style="color:#27ae60"></i>: Freeway | <i class="circle icon"
+                        style="color:#95a5a6"></i>: Parking
                     Facility | <i class="circle icon" style="color:#f1c40f"></i>: Rural}</p>
-                <p>Disengagement initiated by Actors {👤: Test Driver | 🤖: AV System}</p>
+                <p class="col-md-12 col-xs-12 explanation" style="text-align: center;">Disengagement initiated by Actors
+                    {👤: Test Driver/Passenger |
+                    🤖: AV
+                    System}</p>
+                <p class="col-md-12 col-xs-12 explanation" style="text-align: center;"> <b> Note : Hover over / Click
+                        the cards
+                        below to see more details on the disengagement reasons.</b></p>
                 <div class="col-xs-12 row center-xs" id="disengagement-location"></div>
             </div>
-            <div class="col-md-8 col-xs-12" id="disengagement-reason"></div>
+            <div class="row center-xs col-md-8 col-xs-12">
+                <div class="center-xs" style="padding: 10px;">
+                    <div class="ui small buttons">
+                        <button class="ui button y-axis-scales" id="abs">Absolute Change</button>
+                        <div class="or"></div>
+                        <button class="ui button active y-axis-scales" id="perc">Percentage Change</button>
+                    </div>
+                </div>
+                <div class="center-xs" style="padding: 10px;">
+                    <div class="ui small buttons">
+                        <button class="ui button active category-button" id="cat-miles">Miles</button>
+                        <div class="or"></div>
+                        <button class="ui button category-button" id="cat-fleet">Fleet</button>
+                        <div class="or"></div>
+                        <button class="ui button category-button" id="cat-dis">Disengagements</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 col-xs-12" id="comparison"></div>
 
         </div>
 
         <div class="col-xs-12">
-            <p style="margin:20px">Made with ❤️ by <a href="https://twitter.com/keerthanpg">Keerthana</a> and <a
+            <p style="margin:20px; text-align: center;" class="explanation">Made with ❤️ by <a
+                    href="https://twitter.com/keerthanpg">Keerthana</a> and <a
                     href="https://twitter.com/nuwandavek">Vivek</a></p>
         </div>
 
-        <div class="col-xs-12 row center-xs middle-xs" style="margin-bottom: 50px">
-            <div style="padding: 5px" class="fb-like" data-href="https://keerthanpg.github.io/stop-the-trolley/"
-                data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="false"></div>
+        <div class="col-xs-12 row center-xs" style="margin-bottom: 50px">
+            <div class="fb-like" data-href="https://keerthanpg.github.io/stop-the-trolley/" data-width=""
+                data-layout="button_count" data-action="like" data-size="small" data-share="false"></div>
             <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button"
                 data-show-count="false">Tweet</a>
             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
