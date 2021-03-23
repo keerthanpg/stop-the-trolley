@@ -920,7 +920,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
 
     function rectTransition(kk, absk, perk, kterm, xs, ys) {
         // console.log('WTF');
-        d3.selectAll(".rect-comp").rebarWidthmove();
+        d3.selectAll(".rect-comp").remove();
         svg.append("g").selectAll(".rect-comp")
             .data(finDiff.slice().sort((b, a) => (a[kk] - b[kk]))).enter()
             .append('rect')
@@ -1003,7 +1003,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
                     .attr("transform", "rotate(90)")
                     .style("text-anchor", "start");
                 yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleFleet)
-                    .tickSize(-w + 2 * paddingX)
+                    .tickSize(-w + paddingXLeft + paddingXRight)
                     .tickFormat(function (d) {
                         return d;
                     })
@@ -1026,7 +1026,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
                     .attr("dy", ".35em")
                     .attr("transform", "rotate(90)")
                     .style("text-anchor", "start");
-                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleDis).tickSize(-w + 2 * paddingX)
+                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleDis).tickSize(-w + paddingXLeft + paddingXRight)
                     .tickFormat(function (d) {
                         return d;
                     })
@@ -1052,7 +1052,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
                     .attr("dy", ".35em")
                     .attr("transform", "rotate(90)")
                     .style("text-anchor", "start");
-                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleMilesPerc).tickSize(-w + 2 * paddingX)
+                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleMilesPerc).tickSize(-w + paddingXLeft + paddingXRight)
                     .tickFormat(function (d) {
                         return d + '%';
                     })
@@ -1074,7 +1074,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
                     .attr("dy", ".35em")
                     .attr("transform", "rotate(90)")
                     .style("text-anchor", "start");
-                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleFleetPerc).tickSize(-w + 2 * paddingX)
+                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleFleetPerc).tickSize(-w + paddingXLeft + paddingXRight)
                     .tickFormat(function (d) {
                         return d + '%';
                     })
@@ -1097,7 +1097,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
                     .attr("dy", ".35em")
                     .attr("transform", "rotate(90)")
                     .style("text-anchor", "start");
-                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleDisPerc).tickSize(-w + 2 * paddingX)
+                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleDisPerc).tickSize(-w + paddingXLeft + paddingXRight)
                     .tickFormat(function (d) {
                         return d + '%';
                     })
