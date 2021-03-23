@@ -24,6 +24,13 @@ body{
     text-align: justify;
     line-height: 1.5;
 }
+.explanation-head{
+    font-size: 30px !important;
+    line-height: 1.5;
+    font-family: 'Josefin Sans';
+    text-transform: uppercase;
+    
+}
 
 #section-1{
     min-height: 100vh;
