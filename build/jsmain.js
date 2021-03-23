@@ -713,9 +713,15 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
     const w = +d3.select(idSVG).style('width').slice(0, -2);
     const h = +d3.select(idSVG).style('height').slice(0, -2);
 
-    const paddingX = 100;
-    const paddingYTop = 40;
-    const paddingYBottom = 150;
+    let paddingXLeft = 100;
+    let paddingXRight = 100;
+    let paddingYTop = 40;
+    let paddingYBottom = 150;
+    let barWidth = 30
+    if (w < 600) {
+        paddingXRight = 50;
+        barWidth = 10
+    }
 
 
     let svg = d3.select(idSVG)
@@ -764,27 +770,27 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
 
     const xScaleMiles = d3.scalePoint()
         .domain(finDiff.slice().sort((b, a) => (a[1] - b[1])).map(d => d[0]))
-        .range([paddingX, w - paddingX])
+        .range([paddingXLeft, w - paddingXRight])
 
     const xScaleDis = d3.scalePoint()
         .domain(finDiff.slice().sort((b, a) => (a[3] - b[3])).map(d => d[0]))
-        .range([paddingX, w - paddingX])
+        .range([paddingXLeft, w - paddingXRight])
 
     const xScaleFleet = d3.scalePoint()
         .domain(finDiff.slice().sort((b, a) => (a[5] - b[5])).map(d => d[0]))
-        .range([paddingX, w - paddingX])
+        .range([paddingXLeft, w - paddingXRight])
 
     const xScaleMilesPerc = d3.scalePoint()
         .domain(finDiff.slice().sort((b, a) => (a[2] - b[2])).map(d => d[0]))
-        .range([paddingX, w - paddingX])
+        .range([paddingXLeft, w - paddingXRight])
 
     const xScaleDisPerc = d3.scalePoint()
         .domain(finDiff.slice().sort((b, a) => (a[4] - b[4])).map(d => d[0]))
-        .range([paddingX, w - paddingX])
+        .range([paddingXLeft, w - paddingXRight])
 
     const xScaleFleetPerc = d3.scalePoint()
         .domain(finDiff.slice().sort((b, a) => (a[6] - b[6])).map(d => d[0]))
-        .range([paddingX, w - paddingX])
+        .range([paddingXLeft, w - paddingXRight])
     // // let xFormat10 = xScale.tickFormat(100000)
 
     // // xScale.ticks(10).map(xFormat10)
@@ -824,7 +830,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
     let xAxisGrp = svg.append("g")
         .attr("class", "x axis-sec3 axis-comp")
         .attr("id", "x-axis-comp")
-        .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+        .attr("transform", "translate(" + barWidth / 2 + "," + (h - paddingYBottom) + ")")
         .call(d3.axisBottom(xScaleMilesPerc))
         .selectAll("text")
         .attr("y", 0)
@@ -838,8 +844,8 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
     let yAxisGrp = svg.append("g")
         .attr("class", "y axis-sec3")
         .attr("id", "y-axis-comp")
-        .attr("transform", "translate(" + paddingX + ",0)")
-        .call(d3.axisLeft(yScaleMilesPerc).tickSize(-w + 2 * paddingX)
+        .attr("transform", "translate(" + paddingXLeft + ",0)")
+        .call(d3.axisLeft(yScaleMilesPerc).tickSize(-w + paddingXLeft + paddingXRight)
             .tickFormat(function (d) {
                 return d + '%';
             })
@@ -881,7 +887,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
         }
         )
         .attr('y', (d) => yScaleMilesPerc(Math.max(0, d[2])))
-        .attr('width', d => 20)
+        .attr('width', d => barWidth)
         .attr('height', d => Math.abs(yScaleMilesPerc(d[2]) - yScaleMilesPerc(0)))
         .attr('fill', (d) => {
             let minmax = d3.extent(finDiff, k => k[2]);
@@ -914,7 +920,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
 
     function rectTransition(kk, absk, perk, kterm, xs, ys) {
         // console.log('WTF');
-        d3.selectAll(".rect-comp").remove();
+        d3.selectAll(".rect-comp").rebarWidthmove();
         svg.append("g").selectAll(".rect-comp")
             .data(finDiff.slice().sort((b, a) => (a[kk] - b[kk]))).enter()
             .append('rect')
@@ -924,7 +930,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
             }
             )
             .attr('y', (d) => ys(Math.max(0, d[kk])))
-            .attr('width', d => 20)
+            .attr('width', d => barWidth)
             .attr('height', d => Math.abs(ys(d[kk]) - ys(0)))
             .attr('fill', (d) => {
                 let minmax = d3.extent(finDiff, k => k[kk]);
@@ -963,7 +969,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
                 let xAxisGrp = svg.append("g")
                     .attr("class", "x axis-sec3 axis-comp")
                     .attr("id", "x-axis-comp")
-                    .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+                    .attr("transform", "translate(" + barWidth / 2 + "," + (h - paddingYBottom) + ")")
                     .call(d3.axisBottom(xScaleMiles))
                     .selectAll("text")
                     .attr("y", 0)
@@ -972,7 +978,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
                     .attr("transform", "rotate(90)")
                     .style("text-anchor", "start");
 
-                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleMiles).tickSize(-w + 2 * paddingX)
+                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleMiles).tickSize(-w + paddingXLeft + paddingXRight)
                     .tickFormat(function (d) {
                         return d / 1000 + 'k';
                     })
@@ -988,7 +994,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
                 let xAxisGrp = svg.append("g")
                     .attr("class", "x axis-sec3 axis-comp")
                     .attr("id", "x-axis-comp")
-                    .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+                    .attr("transform", "translate(" + barWidth / 2 + "," + (h - paddingYBottom) + ")")
                     .call(d3.axisBottom(xScaleFleet))
                     .selectAll("text")
                     .attr("y", 0)
@@ -1012,7 +1018,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
                 let xAxisGrp = svg.append("g")
                     .attr("class", "x axis-sec3 axis-comp")
                     .attr("id", "x-axis-comp")
-                    .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+                    .attr("transform", "translate(" + barWidth / 2 + "," + (h - paddingYBottom) + ")")
                     .call(d3.axisBottom(xScaleDis))
                     .selectAll("text")
                     .attr("y", 0)
@@ -1038,7 +1044,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
                 let xAxisGrp = svg.append("g")
                     .attr("class", "x axis-sec3 axis-comp")
                     .attr("id", "x-axis-comp")
-                    .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+                    .attr("transform", "translate(" + barWidth / 2 + "," + (h - paddingYBottom) + ")")
                     .call(d3.axisBottom(xScaleMilesPerc))
                     .selectAll("text")
                     .attr("y", 0)
@@ -1083,7 +1089,7 @@ function drawComparison_2019_2020(idSVG, data, data_2019) {
                 let xAxisGrp = svg.append("g")
                     .attr("class", "x axis-sec3 axis-comp")
                     .attr("id", "x-axis-comp")
-                    .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+                    .attr("transform", "translate(" + barWidth / 2 + "," + (h - paddingYBottom) + ")")
                     .call(d3.axisBottom(xScaleDisPerc))
                     .selectAll("text")
                     .attr("y", 0)
