@@ -262,9 +262,6 @@ function mileBarChart(id, svgID, data) {
         for (var k = 0; k < d[0]; k++)fleet.push([d[1], d[2], d[0], d[3]])
     })
 
-
-    // console.log(totalAV, perc, fleet)
-
     let carScale, carSpace;
 
     if (w > 600) {
@@ -699,6 +696,467 @@ function drawMilesDisFleet(idSVG, data) {
 }
 
 
+
+function initComparison_2019_2020(id, idSVG) {
+    const w = +d3.select(id).style('width').slice(0, -2);
+    const h = +d3.select(id).style('height').slice(0, -2);
+
+
+    let svg = d3.select(id).append('svg').attr('height', h).attr('width', w).attr('id', idSVG);
+
+}
+
+
+function drawComparison_2019_2020(idSVG, data, data_2019) {
+
+    // console.log('dlp',data)
+    const w = +d3.select(idSVG).style('width').slice(0, -2);
+    const h = +d3.select(idSVG).style('height').slice(0, -2);
+
+    const paddingX = 100;
+    const paddingYTop = 40;
+    const paddingYBottom = 150;
+
+
+    let svg = d3.select(idSVG)
+
+
+    // Get the diffs of the two datasets!
+    let names = Object.keys(nameShortner);
+    let milesDiff = {};
+    let finDiff = []
+
+    for (var i = 0; i < names.length; i++) {
+        milesDiff[names[i]] = { 'Y19_miles': 0, 'Y20_miles': 0, 'Y19_fleet': 0, 'Y20_fleet': 0, 'Y19_dis': 0, 'Y20_dis': 0 }
+    }
+
+    data.map(d => {
+        milesDiff[d.company_name].Y20_miles = +d.miles;
+        milesDiff[d.company_name].Y20_fleet = +d.fleet;
+        milesDiff[d.company_name].Y20_dis = +d.disengagements;
+    });
+
+    data_2019.map(d => {
+        milesDiff[d.company_name].Y19_miles = +d.miles;
+        milesDiff[d.company_name].Y19_fleet = +d.fleet;
+        milesDiff[d.company_name].Y19_dis = +d.disengagements;
+    });
+
+    for (var i = 0; i < names.length; i++) {
+        if ((milesDiff[names[i]].Y20_miles > 0) && (milesDiff[names[i]].Y19_miles > 0) && (milesDiff[names[i]].Y20_fleet > 0) &&
+            (milesDiff[names[i]].Y19_fleet > 0) && (milesDiff[names[i]].Y20_dis > 0) && (milesDiff[names[i]].Y19_dis > 0)) {
+            finDiff.push([nameShortner[names[i]], milesDiff[names[i]].Y20_miles - milesDiff[names[i]].Y19_miles,
+            (milesDiff[names[i]].Y20_miles - milesDiff[names[i]].Y19_miles) * 100 / milesDiff[names[i]].Y19_miles,
+            milesDiff[names[i]].Y20_dis - milesDiff[names[i]].Y19_dis,
+            (milesDiff[names[i]].Y20_dis - milesDiff[names[i]].Y19_dis) * 100 / milesDiff[names[i]].Y19_dis,
+            milesDiff[names[i]].Y20_fleet - milesDiff[names[i]].Y19_fleet,
+            (milesDiff[names[i]].Y20_fleet - milesDiff[names[i]].Y19_fleet) * 100 / milesDiff[names[i]].Y19_fleet])
+
+        }
+    }
+    // let aa = finDiff.slice().sort((b, a) => (a[1] - b[1]));
+    // console.log(aa)
+    // let bb = finDiff.slice().sort((b, a) => (a[2] - b[2]));
+    // console.log(bb)
+
+    console.log(finDiff.slice().sort((b, a) => (a[1] - b[1])).map(d => d[0]))
+    console.log(finDiff.slice().sort((b, a) => (a[2] - b[2])).map(d => d[0]))
+
+    const xScaleMiles = d3.scalePoint()
+        .domain(finDiff.slice().sort((b, a) => (a[1] - b[1])).map(d => d[0]))
+        .range([paddingX, w - paddingX])
+
+    const xScaleDis = d3.scalePoint()
+        .domain(finDiff.slice().sort((b, a) => (a[3] - b[3])).map(d => d[0]))
+        .range([paddingX, w - paddingX])
+
+    const xScaleFleet = d3.scalePoint()
+        .domain(finDiff.slice().sort((b, a) => (a[5] - b[5])).map(d => d[0]))
+        .range([paddingX, w - paddingX])
+
+    const xScaleMilesPerc = d3.scalePoint()
+        .domain(finDiff.slice().sort((b, a) => (a[2] - b[2])).map(d => d[0]))
+        .range([paddingX, w - paddingX])
+
+    const xScaleDisPerc = d3.scalePoint()
+        .domain(finDiff.slice().sort((b, a) => (a[4] - b[4])).map(d => d[0]))
+        .range([paddingX, w - paddingX])
+
+    const xScaleFleetPerc = d3.scalePoint()
+        .domain(finDiff.slice().sort((b, a) => (a[6] - b[6])).map(d => d[0]))
+        .range([paddingX, w - paddingX])
+    // // let xFormat10 = xScale.tickFormat(100000)
+
+    // // xScale.ticks(10).map(xFormat10)
+
+    const yScaleMiles = d3.scaleLinear()
+        .domain(d3.extent(finDiff, (d) => +d[1]))
+        .range([h - paddingYBottom, paddingYTop]);
+
+    const yScaleDis = d3.scaleLinear()
+        .domain(d3.extent(finDiff, (d) => +d[3]))
+        .range([h - paddingYBottom, paddingYTop]);
+
+    const yScaleFleet = d3.scaleLinear()
+        .domain(d3.extent(finDiff, (d) => +d[5]))
+        .range([h - paddingYBottom, paddingYTop]);
+
+    const yScaleMilesPerc = d3.scaleLinear()
+        .domain(d3.extent(finDiff, (d) => +d[2]))
+        .range([h - paddingYBottom, paddingYTop]);
+
+    const yScaleDisPerc = d3.scaleLinear()
+        .domain(d3.extent(finDiff, (d) => +d[4]))
+        .range([h - paddingYBottom, paddingYTop]);
+
+    const yScaleFleetPerc = d3.scaleLinear()
+        .domain(d3.extent(finDiff, (d) => +d[6]))
+        .range([h - paddingYBottom, paddingYTop]);
+
+    let globalScale = "perc";
+    let globalCat = "miles";
+
+    d3.selectAll('#x-axis-comp').remove();
+    d3.selectAll('#y-axis-comp').remove();
+    d3.selectAll('#text-title-plot-comp-y').remove();
+    d3.selectAll('#text-title-plot-comp-x').remove();
+
+    let xAxisGrp = svg.append("g")
+        .attr("class", "x axis-sec3 axis-comp")
+        .attr("id", "x-axis-comp")
+        .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+        .call(d3.axisBottom(xScaleMilesPerc))
+        .selectAll("text")
+        .attr("y", 0)
+        .attr("x", 9)
+        .attr("dy", ".35em")
+        .attr("transform", "rotate(90)")
+        .style("text-anchor", "start");
+    // Create an axis component with d3.axisBottom
+
+
+    let yAxisGrp = svg.append("g")
+        .attr("class", "y axis-sec3")
+        .attr("id", "y-axis-comp")
+        .attr("transform", "translate(" + paddingX + ",0)")
+        .call(d3.axisLeft(yScaleMilesPerc).tickSize(-w + 2 * paddingX)
+            .tickFormat(function (d) {
+                return d + '%';
+            })
+            .ticks(3)
+        ); // Create an axis component with d3.axisLeft
+
+
+    let yAxisLabel = svg.append("text")
+        .attr("id", "text-title-plot-comp-y")
+        .attr("class", "text-title")
+        .attr('fill', '#000')
+        .attr('x', -h / 2)
+        .attr('y', 50)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '20px')
+        .attr('transform', 'rotate(270)')
+        .text("Difference in Miles")
+
+    svg.append("text")
+        .attr("id", "text-title-plot-comp-x")
+        .attr("class", "text-title")
+        .attr('fill', '#000')
+        .attr('x', w / 2)
+        .attr('y', h - 10)
+        .attr('text-anchor', 'middle')
+        .attr('font-size', '20px')
+        .text("Companies")
+
+
+    var div = d3.select("#tooltip");
+
+
+    svg.append("g").selectAll(".rect-comp")
+        .data(finDiff.slice().sort((b, a) => (a[2] - b[2]))).enter()
+        .append('rect')
+        .attr("class", "rect rect-comp")
+        .attr("x", (d, i) => {
+            return xScaleMilesPerc(d[0])
+        }
+        )
+        .attr('y', (d) => yScaleMilesPerc(Math.max(0, d[2])))
+        .attr('width', d => 20)
+        .attr('height', d => Math.abs(yScaleMilesPerc(d[2]) - yScaleMilesPerc(0)))
+        .attr('fill', (d) => {
+            let minmax = d3.extent(finDiff, k => k[2]);
+            if (d[1] > 0) return d3.interpolateGreens(d[2] / minmax[1]);
+            else return d3.interpolateReds(d[2] / minmax[0]);
+        })
+        .attr('stroke', '#aaa')
+        .on("mouseover", function (d, i) {
+            div.transition()
+                .duration(200)
+                .style("display", 'block');
+            div.html(() => {
+                change = parseFloat(d[2]).toFixed(2)
+                if (change < 0) return '<span style="font-weight:800; letter-spacing: 2px; color:#c0392b; text-transform: uppercase">' +
+                    d[0] + '</span><br> Difference in Miles : ' + (d[1] / 1000).toFixed(2) + "k (" + Math.abs(change) + "% ⬇️ since 2019)";
+                else return '<span style="font-weight:800; letter-spacing: 2px; color:#c0392b; text-transform: uppercase">' +
+                    d[0] + '</span><br> Difference in Miles : ' + (d[1] / 1000).toFixed(2) + "k (" + Math.abs(change) + "% ⬆️ since 2019)";
+            })
+                .style("left", (d3.event.pageX - 100) + "px")
+                .style("top", (d3.event.pageY - 80) + "px");
+
+
+        })
+        .on("mouseout", function (d) {
+            div.transition()
+                .duration(500)
+                // .style("opacity", 0)
+                .style("display", 'none');
+        })
+
+    function rectTransition(kk, absk, perk, kterm, xs, ys) {
+        // console.log('WTF');
+        d3.selectAll(".rect-comp").remove();
+        svg.append("g").selectAll(".rect-comp")
+            .data(finDiff.slice().sort((b, a) => (a[kk] - b[kk]))).enter()
+            .append('rect')
+            .attr("class", "rect rect-comp")
+            .attr("x", (d, i) => {
+                return xs(d[0])
+            }
+            )
+            .attr('y', (d) => ys(Math.max(0, d[kk])))
+            .attr('width', d => 20)
+            .attr('height', d => Math.abs(ys(d[kk]) - ys(0)))
+            .attr('fill', (d) => {
+                let minmax = d3.extent(finDiff, k => k[kk]);
+                if (d[kk] > 0) return d3.interpolateGreens(d[kk] / minmax[1]);
+                else return d3.interpolateReds(d[kk] / minmax[0]);
+            })
+            .attr('stroke', '#aaa')
+            .on("mouseover", function (d, i) {
+                div.transition()
+                    .duration(200)
+                    .style("display", 'block');
+                div.html(() => {
+                    change = parseFloat(d[perk]).toFixed(2)
+                    if (change < 0) return '<span style="font-weight:800; letter-spacing: 2px; color:#c0392b; text-transform: uppercase">' +
+                        d[0] + '</span><br> Difference in ' + kterm + ' : ' + (d[absk] / 1000).toFixed(2) + "k (" + Math.abs(change) + "% ⬇️ since 2019)";
+                    else return '<span style="font-weight:800; letter-spacing: 2px; color:#c0392b; text-transform: uppercase">' +
+                        d[0] + '</span><br> Difference in ' + kterm + ' : ' + (d[absk] / 1000).toFixed(2) + "k (" + Math.abs(change) + "% ⬆️ since 2019)";
+                })
+                    .style("left", (d3.event.pageX - 100) + "px")
+                    .style("top", (d3.event.pageY - 80) + "px");
+
+
+            })
+            .on("mouseout", function (d) {
+                div.transition()
+                    .duration(500)
+                    .style("display", 'none');
+            })
+    }
+    function comparisonTransition(globalScale, globalCat) {
+
+        if (globalScale == "abs") {
+            if (globalCat == "miles") {
+                // xAxisGrp.transition().duration(2000).call(d3.axisBottom(xScaleMiles));
+                d3.select('#x-axis-comp').remove();
+                let xAxisGrp = svg.append("g")
+                    .attr("class", "x axis-sec3 axis-comp")
+                    .attr("id", "x-axis-comp")
+                    .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+                    .call(d3.axisBottom(xScaleMiles))
+                    .selectAll("text")
+                    .attr("y", 0)
+                    .attr("x", 9)
+                    .attr("dy", ".35em")
+                    .attr("transform", "rotate(90)")
+                    .style("text-anchor", "start");
+
+                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleMiles).tickSize(-w + 2 * paddingX)
+                    .tickFormat(function (d) {
+                        return d / 1000 + 'k';
+                    })
+                    .ticks(3)
+                )
+                yAxisLabel.transition().duration(2000).text("Difference in Miles");
+                rectTransition(1, 1, 2, "Miles", xScaleMiles, yScaleMiles);
+
+
+            }
+            else if (globalCat == "fleet") {
+                d3.select('#x-axis-comp').remove();
+                let xAxisGrp = svg.append("g")
+                    .attr("class", "x axis-sec3 axis-comp")
+                    .attr("id", "x-axis-comp")
+                    .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+                    .call(d3.axisBottom(xScaleFleet))
+                    .selectAll("text")
+                    .attr("y", 0)
+                    .attr("x", 9)
+                    .attr("dy", ".35em")
+                    .attr("transform", "rotate(90)")
+                    .style("text-anchor", "start");
+                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleFleet)
+                    .tickSize(-w + 2 * paddingX)
+                    .tickFormat(function (d) {
+                        return d;
+                    })
+                    .ticks(10)
+                )
+                yAxisLabel.transition().duration(2000).text("Difference in Fleet");
+                rectTransition(5, 5, 6, "Fleet", xScaleFleet, yScaleFleet);
+
+            }
+            else if (globalCat == "dis") {
+                d3.select('#x-axis-comp').remove();
+                let xAxisGrp = svg.append("g")
+                    .attr("class", "x axis-sec3 axis-comp")
+                    .attr("id", "x-axis-comp")
+                    .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+                    .call(d3.axisBottom(xScaleDis))
+                    .selectAll("text")
+                    .attr("y", 0)
+                    .attr("x", 9)
+                    .attr("dy", ".35em")
+                    .attr("transform", "rotate(90)")
+                    .style("text-anchor", "start");
+                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleDis).tickSize(-w + 2 * paddingX)
+                    .tickFormat(function (d) {
+                        return d;
+                    })
+                    .ticks(8)
+                )
+                yAxisLabel.transition().duration(2000).text("Difference in Disengagements");
+                rectTransition(3, 3, 4, "Disengagements", xScaleDis, yScaleDis);
+
+            }
+
+        }
+        else if (globalScale == "perc") {
+            if (globalCat == "miles") {
+                d3.select('#x-axis-comp').remove();
+                let xAxisGrp = svg.append("g")
+                    .attr("class", "x axis-sec3 axis-comp")
+                    .attr("id", "x-axis-comp")
+                    .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+                    .call(d3.axisBottom(xScaleMilesPerc))
+                    .selectAll("text")
+                    .attr("y", 0)
+                    .attr("x", 9)
+                    .attr("dy", ".35em")
+                    .attr("transform", "rotate(90)")
+                    .style("text-anchor", "start");
+                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleMilesPerc).tickSize(-w + 2 * paddingX)
+                    .tickFormat(function (d) {
+                        return d + '%';
+                    })
+                    .ticks(10)
+                )
+                yAxisLabel.transition().duration(2000).text("% Difference in Miles");
+                rectTransition(2, 1, 2, "Miles", xScaleMilesPerc, yScaleMilesPerc);
+            }
+            else if (globalCat == "fleet") {
+                d3.select('#x-axis-comp').remove();
+                let xAxisGrp = svg.append("g")
+                    .attr("class", "x axis-sec3 axis-comp")
+                    .attr("id", "x-axis-comp")
+                    .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+                    .call(d3.axisBottom(xScaleFleetPerc))
+                    .selectAll("text")
+                    .attr("y", 0)
+                    .attr("x", 9)
+                    .attr("dy", ".35em")
+                    .attr("transform", "rotate(90)")
+                    .style("text-anchor", "start");
+                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleFleetPerc).tickSize(-w + 2 * paddingX)
+                    .tickFormat(function (d) {
+                        return d + '%';
+                    })
+                    .ticks(10)
+                )
+                yAxisLabel.transition().duration(2000).text("% Difference in Fleet")
+                rectTransition(6, 5, 6, "Fleet", xScaleFleetPerc, yScaleFleetPerc);
+
+            }
+            else if (globalCat == "dis") {
+                d3.select('#x-axis-comp').remove();
+                let xAxisGrp = svg.append("g")
+                    .attr("class", "x axis-sec3 axis-comp")
+                    .attr("id", "x-axis-comp")
+                    .attr("transform", "translate(10," + (h - paddingYBottom) + ")")
+                    .call(d3.axisBottom(xScaleDisPerc))
+                    .selectAll("text")
+                    .attr("y", 0)
+                    .attr("x", 9)
+                    .attr("dy", ".35em")
+                    .attr("transform", "rotate(90)")
+                    .style("text-anchor", "start");
+                yAxisGrp.transition().duration(2000).call(d3.axisLeft(yScaleDisPerc).tickSize(-w + 2 * paddingX)
+                    .tickFormat(function (d) {
+                        return d + '%';
+                    })
+                    .ticks(10)
+                )
+                yAxisLabel.transition().duration(2000).text("% Difference in Disengagements")
+                rectTransition(4, 3, 4, "Disengagements", xScaleDisPerc, yScaleDisPerc);
+
+            }
+
+
+
+        }
+
+
+    }
+
+    $('#abs').click(() => {
+        $(".y-axis-scales").removeClass("active");
+        $("#abs").addClass("active");
+        globalScale = "abs";
+        comparisonTransition(globalScale, globalCat);
+    })
+    $('#perc').click(() => {
+        $(".y-axis-scales").removeClass("active");
+        $("#perc").addClass("active");
+        globalScale = "perc";
+        comparisonTransition(globalScale, globalCat);
+
+    })
+
+    $('#cat-miles').click(() => {
+        $(".category-button").removeClass("active");
+        $("#cat-miles").addClass("active");
+        globalCat = "miles";
+        comparisonTransition(globalScale, globalCat);
+
+    })
+
+
+    $('#cat-fleet').click(() => {
+        $(".category-button").removeClass("active");
+        $("#cat-fleet").addClass("active");
+        globalCat = "fleet";
+        comparisonTransition(globalScale, globalCat);
+
+    })
+
+    $('#cat-dis').click(() => {
+        $(".category-button").removeClass("active");
+        $("#cat-dis").addClass("active");
+        globalCat = "dis";
+        comparisonTransition(globalScale, globalCat);
+
+    })
+
+
+
+
+
+
+}
+
+
+
 function initMilesPerDis(id, idSVG) {
     const w = +d3.select(id).style('width').slice(0, -2);
     const h = +d3.select(id).style('height').slice(0, -2);
@@ -803,7 +1261,6 @@ function drawMilesPerDis(idSVG, data) {
 
 
 }
-
 
 function drawDisLocation(id, data) {
 
@@ -935,7 +1392,7 @@ function drawDisLocation(id, data) {
         let height_bar = [0, 0]
         let total_height_back = 2 * outerRadius - 25;
         company.disengagements_actor.map(p => {
-            console.log(p);
+            // console.log(p);
             if (p.actor === 'Test Driver') {
                 height_bar[0] = p.total;
             }
@@ -1015,9 +1472,12 @@ function drawDisLocation(id, data) {
 
 Promise.all(
     [
-        d3.json('./res/data.json')
+        d3.json('./res/data.json'),
+        d3.json('../2019/data.json')
 
     ]).then(function (data) {
+
+        data_2019 = data[1];
         data = data[0];
 
         data = data.sort((b, a) => {
@@ -1115,7 +1575,7 @@ Promise.all(
         drawDisLocation('#disengagement-location', data);
         $.when(initMilesDisFleet('#miles-disengagement-fleet', 'miles-disengagement-fleet-svg')).then(drawMilesDisFleet('#miles-disengagement-fleet-svg', data));
         $.when(initMilesPerDis('#miles-per-disengagement', 'miles-per-disengagement-svg')).then(drawMilesPerDis('#miles-per-disengagement-svg', data));
-
+        $.when(initComparison_2019_2020('#comparison', 'comparison-svg')).then(drawComparison_2019_2020('#comparison-svg', data, data_2019));
 
 
 
