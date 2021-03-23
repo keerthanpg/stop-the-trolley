@@ -1473,7 +1473,7 @@ function drawDisLocation(id, data) {
 Promise.all(
     [
         d3.json('./res/data.json'),
-        d3.json('../2019/data.json')
+        d3.json('./2019/data.json')
 
     ]).then(function (data) {
 
